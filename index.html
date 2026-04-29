@@ -5,11 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ASHIR TECH</title>
   <link rel="stylesheet" href="assets/css/style.css">
+  <script defer src="assets/js/theme.js"></script>
+  <script defer src="assets/js/nav.js"></script>
 </head>
 <body>
   <header class="site-header">
-    <div class="brand">ASHIR TECH</div>
-    <nav class="site-nav" aria-label="Primary">
+    <div class="brand-wrap">
+      <div class="brand">ASHIR TECH</div>
+      <div class="theme-switcher">
+        <button class="theme-toggle" type="button" aria-label="Toggle theme">
+          <span class="theme-toggle__label">Dark mode</span>
+        </button>
+      </div>
+    </div>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open navigation menu">
+      <img class="nav-toggle__icon" src="assets/css/images/whitemode%20drop-down%20button.png" alt="" aria-hidden="true">
+    </button>
+    <nav class="site-nav" id="site-nav" aria-label="Primary">
       <a href="pages/about.html">About</a>
       <a href="pages/services.html">Services</a>
       <a href="pages/projects.html">Projects</a>

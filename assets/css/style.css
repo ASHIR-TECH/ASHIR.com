@@ -2,6 +2,16 @@
   box-sizing: border-box;
 }
 
+:root {
+  color-scheme: light dark;
+  --bg: #ffffff;
+  --surface: rgba(255, 255, 255, 0.72);
+  --text: #111111;
+  --muted: #5b5b5b;
+  --border: #e5e5e5;
+  --accent: #111111;
+}
+
 @font-face {
   font-family: "Megrim";
   src: url("fonts/Megrim/Megrim-Regular.ttf") format("truetype");
@@ -21,8 +31,11 @@ html, body {
 
 body {
   font-family: "Offside", Arial, sans-serif;
-  color: #111;
-  background: #fff;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top, rgba(0, 0, 0, 0.04), transparent 35%),
+    var(--bg);
+  transition: background-color 180ms ease, color 180ms ease;
 }
 
 .site-header {
@@ -31,28 +44,154 @@ body {
   justify-content: space-between;
   gap: 1rem;
   padding: 1rem 1.25rem;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 10;
+}
+
+.brand-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
 }
 
 .brand {
   font-family: "Offside", Arial, sans-serif;
   font-weight: 700;
   letter-spacing: 0.08em;
-  font-size: 0.95rem;
+  font-size: 0.75rem;
+}
+
+.theme-switcher {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 10rem;
+  height: 2.9rem;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg);
+  color: inherit;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  font: inherit;
+}
+
+.theme-toggle__label {
+  width: 100%;
+  text-align: center;
+  font-size: 0.92rem;
+  white-space: nowrap;
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  border-color: var(--accent);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.nav-toggle {
+  position: relative;
+  width: 10rem;
+  height: 2.9rem;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg);
+  color: inherit;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  font: inherit;
+  font-family: "Megrim", Arial, sans-serif;
+  letter-spacing: 0.08em;
+}
+
+.nav-toggle__icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 0.4rem 1rem;
+  transform-origin: center;
+  transition: transform 180ms ease;
+}
+
+.nav-toggle[data-theme="light"] .nav-toggle__icon {
+  transform: scale(0.60);
+}
+
+.nav-toggle[data-theme="dark"] .nav-toggle__icon {
+  transform: scale(1);
+}
+
+.nav-toggle:hover,
+.nav-toggle:focus-visible {
+  border-color: var(--accent);
+}
+
+.nav-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .site-nav {
+  position: absolute;
+  top: calc(100% + 0.6rem);
+  right: 1.25rem;
+  width: min(18rem, calc(100vw - 2.5rem));
+  display: grid;
+  gap: 0.85rem;
+  padding: 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 1.1rem;
+  background: var(--surface);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  transform-origin: top right;
+  transform: translateY(-12px) scaleY(0.96);
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transition: max-height 280ms ease, opacity 220ms ease, transform 280ms ease, padding 280ms ease;
   font-family: "Megrim", Arial, sans-serif;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.90rem;
   font-weight: 560;
+  z-index: 9;
+}
+
+.site-nav.is-open {
+  max-height: 24rem;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scaleY(1);
 }
 
 .site-nav a {
   color: inherit;
   text-decoration: none;
   font-size: 0.95rem;
+  transition: opacity 180ms ease;
+  padding: 0.35rem 0.15rem;
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+  opacity: 0.65;
 }
 
 .hero {
@@ -69,7 +208,7 @@ body {
   font-family: "Megrim", Arial, sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  color: #000000;
+  color: var(--accent);
 }
 
 .hero h1 {
@@ -82,6 +221,78 @@ body {
 .subtitle {
   font-family: "Megrim", Arial, sans-serif;
   margin: 1.5rem 0 0;
-  color: #000000;
+  color: var(--muted);
   font-weight: 400;
+}
+
+:root[data-theme="light"] {
+  --bg: #ffffff;
+  --surface: rgba(255, 255, 255, 0.72);
+  --text: #111111;
+  --muted: #5b5b5b;
+  --border: #e5e5e5;
+  --accent: #111111;
+}
+
+:root[data-theme="dark"] {
+  --bg: #0d0f12;
+  --surface: rgba(13, 15, 18, 0.72);
+  --text: #f5f7fa;
+  --muted: #a4aab3;
+  --border: #232a33;
+  --accent: #ffffff;
+}
+
+:root[data-theme="dark"] body {
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.08), transparent 35%),
+    var(--bg);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0d0f12;
+    --surface: rgba(13, 15, 18, 0.72);
+    --text: #f5f7fa;
+    --muted: #a4aab3;
+    --border: #232a33;
+    --accent: #ffffff;
+  }
+
+  body {
+    background:
+      radial-gradient(circle at top, rgba(255, 255, 255, 0.08), transparent 35%),
+      var(--bg);
+  }
+}
+
+@media (max-width: 640px) {
+  .site-header {
+    padding: 0.85rem 0.9rem;
+  }
+
+  .theme-toggle {
+    width: 6.4rem;
+    height: 2.35rem;
+  }
+
+  .theme-toggle__label {
+    font-size: 0.74rem;
+  }
+
+  .nav-toggle {
+    width: 2.55rem;
+    height: 2.35rem;
+  }
+
+  .nav-toggle__icon {
+    padding: 0.25rem 0.35rem;
+  }
+
+  .site-nav {
+    right: 0.9rem;
+    width: min(16rem, calc(100vw - 1.8rem));
+    padding: 0.75rem;
+    gap: 0.65rem;
+  }
 }
