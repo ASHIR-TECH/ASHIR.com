@@ -61,7 +61,7 @@ body {
   font-family: "Offside", Arial, sans-serif;
   font-weight: 700;
   letter-spacing: 0.08em;
-  font-size: 0.75rem;
+  font-size: 0.80rem;
 }
 
 .theme-switcher {
@@ -194,6 +194,12 @@ body {
   opacity: 0.65;
 }
 
+:root[data-theme="dark"] .site-nav,
+:root[data-theme="dark"] .site-nav a {
+  color: #ffffff;
+  text-shadow: 0 0 0.35px rgba(255, 255, 255, 0.55);
+}
+
 .hero {
   min-height: calc(100vh - 69px);
   display: grid;
@@ -263,6 +269,12 @@ body {
     background:
       radial-gradient(circle at top, rgba(255, 255, 255, 0.08), transparent 35%),
       var(--bg);
+  }
+
+  .site-nav,
+  .site-nav a {
+    color: #ffffff;
+    text-shadow: 0 0 0.35px rgba(255, 255, 255, 0.55);
   }
 }
 
