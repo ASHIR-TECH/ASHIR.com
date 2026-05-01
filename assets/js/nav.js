@@ -8,8 +8,12 @@
     return;
   }
 
-  const lightIcon = "assets/css/images/whitemode drop-down button.png";
-  const darkIcon = "assets/css/images/darkmode drop-down button.png";
+  const scriptBase =
+    document.querySelector('script[src$="assets/js/nav.js"], script[src$="../assets/js/nav.js"]')?.src ||
+    document.currentScript?.src ||
+    document.baseURI;
+  const lightIcon = new URL("../css/images/whitemode drop-down button.png", scriptBase).href;
+  const darkIcon = new URL("../css/images/darkmode drop-down button.png", scriptBase).href;
 
   const getTheme = () => document.documentElement.dataset.theme || localStorage.getItem(storageKey) || "light";
 
