@@ -5,6 +5,117 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About | ASHIR TECH</title>
   <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/nav.css">
+  <script defer src="../assets/js/theme.js"></script>
+  <script defer src="../assets/js/nav.js"></script>
+  <script defer src="../assets/js/about.js"></script>
 </head>
-<body></body>
+<body class="about-page">
+  <header class="site-header">
+    <div class="brand-wrap">
+      <div class="brand">ASHIR TECH</div>
+      <div class="theme-switcher">
+        <button class="theme-toggle" type="button" aria-label="Toggle theme">
+          <span class="theme-toggle__label">Dark mode</span>
+        </button>
+      </div>
+    </div>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open navigation menu">
+      <img class="nav-toggle__icon" src="../assets/css/images/whitemode%20drop-down%20button.png" alt="" aria-hidden="true">
+    </button>
+    <nav class="site-nav" id="site-nav" aria-label="Primary">
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="projects.html">Projects</a>
+      <a href="contact.html">Contact</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
+  </header>
+
+  <main class="about-shell">
+    <section class="about-hero panel panel--hero">
+      <p class="eyebrow">About ASHIR TECH</p>
+      <h1>Software systems for the next layer of operations.</h1>
+      <p class="about-lead">
+        We design and build focused digital systems, clean interfaces, and high-trust software experiences for teams
+        that need precision, speed, and control.
+      </p>
+    </section>
+
+    <section class="about-grid">
+      <article class="panel feat-card">
+        <p class="panel-kicker">01 / Mission</p>
+        <h2>Turn complexity into something usable.</h2>
+        <p>
+          We help modern businesses shape scattered information into systems that feel sharp, stable, and easy to act on.
+        </p>
+      </article>
+
+      <article class="panel feat-card">
+        <p class="panel-kicker">02 / Stack</p>
+        <h2>Product design, web systems, and practical engineering.</h2>
+        <p>
+          From fast sites to internal tools, dashboards, and operational software, we keep the experience minimal and the
+          implementation disciplined.
+        </p>
+      </article>
+
+      <article class="panel feat-card">
+        <p class="panel-kicker">03 / Signal</p>
+        <h2>Clear interfaces. Stable delivery. Strong results.</h2>
+        <p>
+          Every screen should reduce friction, every interaction should feel intentional, and every system should be built
+          to last.
+        </p>
+      </article>
+
+      <article class="panel feat-card">
+        <p class="panel-kicker">04 / Metrics</p>
+        <div class="metric-row">
+          <div>
+            <span class="metric-value">
+              <span class="metric-number" data-target="24">0</span>
+              <span class="metric-suffix">/7</span>
+            </span>
+            <span class="metric-label">availability mindset</span>
+          </div>
+          <div>
+            <span class="metric-value">
+              <span class="metric-number" data-target="99">0</span>
+              <span class="metric-suffix">%</span>
+            </span>
+            <span class="metric-label">focus on clarity</span>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="panel about-process">
+      <p class="panel-kicker">How We Work</p>
+      <div class="process-grid">
+        <div>
+          <div class="work-cube" aria-hidden="true"></div>
+          <h2>Discover</h2>
+          <p>We map the problem, the users, and the outcome before anything gets built.</p>
+        </div>
+        <div>
+          <div class="work-cube" aria-hidden="true"></div>
+          <h2>Design</h2>
+          <p>We shape the interface and the information architecture into something clean and precise.</p>
+        </div>
+        <div>
+          <div class="work-cube" aria-hidden="true"></div>
+          <h2>Build</h2>
+          <p>We ship the system with a calm, controlled implementation and a sharp visual finish.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel about-cta">
+      <p class="panel-kicker">Next Step</p>
+      <h2>Ready to build something focused?</h2>
+      <p>Start a project, ask for a prototype, or ask us to shape the right system for your team.</p>
+    </section>
+  </main>
+</body>
 </html>
