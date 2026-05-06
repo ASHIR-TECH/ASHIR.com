@@ -5,6 +5,130 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact | ASHIR TECH</title>
   <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/nav.css">
+  <link rel="stylesheet" href="../assets/css/site-pages.css">
+  <script defer src="../assets/js/theme.js"></script>
+  <script defer src="../assets/js/nav.js"></script>
+  <script defer src="../assets/js/site-pages.js"></script>
 </head>
-<body></body>
+<body class="site-template-page">
+  <header class="site-header">
+    <div class="brand-wrap">
+      <div class="brand">ASHIR TECH</div>
+      <div class="theme-switcher">
+        <button class="theme-toggle" type="button" aria-label="Toggle theme">
+          <span class="theme-toggle__label">Dark mode</span>
+        </button>
+      </div>
+    </div>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open navigation menu">
+      <img class="nav-toggle__icon" src="../assets/css/images/whitemode%20drop-down%20button.png" alt="" aria-hidden="true">
+    </button>
+    <nav class="site-nav" id="site-nav" aria-label="Primary">
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="projects.html">Projects</a>
+      <a href="contact.html">Contact</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
+  </header>
+  <main class="site-template-shell">
+    <section class="site-template-canvas page-shell">
+      <header class="page-hero" data-reveal>
+        <div class="page-hero__row">
+          <div>
+            <p class="site-template-eyebrow">Contact</p>
+            <h1 class="page-title">Start with a simple line.</h1>
+          </div>
+          <p class="page-microcopy">Partnerships. Demos. Early conversations.</p>
+        </div>
+        <p class="page-lead">This page stays minimal by design, but it still needs the right paths for a startup: email, form, and a short expectation of response.</p>
+        <div class="page-chips">
+          <span class="page-chip">hello@company.com</span>
+          <span class="page-chip">48 hour response</span>
+          <span class="page-chip">Product + engineering</span>
+        </div>
+      </header>
+
+      <section class="contact-grid" data-reveal>
+        <div class="contact-panel">
+          <div class="section-head">
+            <p class="section-label">Reach out</p>
+            <span class="section-title">Direct routes</span>
+          </div>
+          <div class="contact-list">
+            <div class="contact-item">
+              <small>Email</small>
+              <strong><a href="mailto:hello@company.com">hello@company.com</a></strong>
+            </div>
+            <div class="contact-item">
+              <small>For</small>
+              <strong>Partnerships, demos, product conversations, and build inquiries.</strong>
+            </div>
+            <div class="contact-item">
+              <small>Cadence</small>
+              <strong>We reply within 48 hours on working days.</strong>
+            </div>
+          </div>
+        </div>
+
+        <form class="contact-form">
+          <label>
+            Name
+            <input type="text" name="name" placeholder="Your name">
+          </label>
+          <label>
+            Email
+            <input type="email" name="email" placeholder="you@example.com">
+          </label>
+          <label>
+            Message
+            <textarea name="message" placeholder="Tell us what you are building."></textarea>
+          </label>
+          <button type="submit">Send request</button>
+        </form>
+      </section>
+
+      <section class="section-block" data-reveal>
+        <div class="section-head">
+          <p class="section-label">What to expect</p>
+          <span class="section-title">Short process</span>
+        </div>
+        <div class="feature-strip">
+          <article class="feature-item">
+            <strong>1. Brief</strong>
+            <span>We read the problem and figure out whether the shape is product, platform, or both.</span>
+          </article>
+          <article class="feature-item">
+            <strong>2. Route</strong>
+            <span>We map the shortest useful route from idea to a working surface.</span>
+          </article>
+          <article class="feature-item">
+            <strong>3. Build</strong>
+            <span>We move into a calm delivery rhythm and keep the surface understandable.</span>
+          </article>
+        </div>
+      </section>
+
+      <footer class="page-footer" data-reveal>
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <strong>ASHIR TECH</strong>
+            <p>Built for startups that need structure, not noise.</p>
+          </div>
+          <div class="footer-links">
+            <a href="services.html">Services</a>
+            <a href="projects.html">Projects</a>
+            <a href="faq.html">FAQ</a>
+          </div>
+          <div class="footer-meta">
+            <span>Minimal forms, clear expectations, fast replies.</span>
+            <span>Contact page template v1.</span>
+          </div>
+        </div>
+        <div class="footer-line"></div>
+      </footer>
+    </section>
+    </main>
+</body>
 </html>
