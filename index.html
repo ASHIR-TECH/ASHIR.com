@@ -6,35 +6,265 @@
   <title>ASHIR TECH</title>
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/nav.css">
+  <link rel="stylesheet" href="assets/css/landing.css">
   <script defer src="assets/js/theme.js"></script>
   <script defer src="assets/js/nav.js"></script>
+  <script defer src="assets/js/landing.js"></script>
+  <script defer src="assets/js/marquee-loop.js"></script>
 </head>
-<body>
-  <header class="site-header">
-    <div class="brand-wrap">
-      <div class="brand">ASHIR TECH</div>
-      <div class="theme-switcher">
-        <button class="theme-toggle" type="button" aria-label="Toggle theme">
-          <span class="theme-toggle__label">Dark mode</span>
-        </button>
-      </div>
-    </div>
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open navigation menu">
-      <img class="nav-toggle__icon" src="assets/css/images/whitemode%20drop-down%20button.png" alt="" aria-hidden="true">
-    </button>
-    <nav class="site-nav" id="site-nav" aria-label="Primary">
-      <a href="pages/about.html">About</a>
-      <a href="pages/services.html">Services</a>
-      <a href="pages/projects.html">Projects</a>
-      <a href="pages/contact.html">Contact</a>
-      <a href="pages/faq.html">FAQ</a>
-    </nav>
-  </header>
+<body class="landing-page">
+  <div class="landing-shell">
+    <header class="landing-header">
+      <div class="landing-header__bar">
+        <a class="landing-brand" href="index.html" aria-label="ASHIR TECH home">
+          <span class="landing-brand__mark" aria-hidden="true"></span>
+          <span class="landing-brand__name">ASHIR TECH</span>
+        </a>
 
-  <main class="hero">
-    <p class="eyebrow">Official Website</p>
-    <h1>ASHIR TECH</h1>
-    <p class="subtitle">Minimal landing page starter.</p>
-  </main>
+        <div class="theme-switcher">
+          <button class="theme-toggle" type="button" aria-label="Toggle theme">
+            <span class="theme-toggle__label">Dark mode</span>
+          </button>
+        </div>
+
+        <div class="landing-header__actions">
+          
+          <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open navigation menu">
+            <img class="nav-toggle__icon" src="assets/css/images/whitemode%20drop-down%20button.png" alt="" aria-hidden="true">
+          </button>
+        </div>
+
+        <nav class="site-nav" id="site-nav" aria-label="Primary">
+          <a href="pages/about.html">About</a>
+          <a href="pages/services.html">Services</a>
+          <a href="pages/projects.html">Projects</a>
+          <a href="pages/contact.html">Contact</a>
+          <a href="pages/faq.html">FAQ</a>
+        </nav>
+      </div>
+    </header>
+
+    <aside class="landing-pager" aria-label="Page sections">
+      <a class="landing-pager__item is-active" href="#hero" data-section-link="hero"><span>01</span><small>Hero</small></a>
+      <a class="landing-pager__item" href="#products" data-section-link="products"><span>02</span><small>Products</small></a>
+      <a class="landing-pager__item" href="#stack" data-section-link="stack"><span>03</span><small>Stack</small></a>
+      <a class="landing-pager__item" href="#projects" data-section-link="projects"><span>04</span><small>Projects</small></a>
+      <a class="landing-pager__item" href="#contact-band" data-section-link="contact-band"><span>05</span><small>Start</small></a>
+    </aside>
+
+    <main>
+      <section class="landing-hero" id="hero" data-section="hero">
+        <div class="landing-hero__sticky">
+          <video class="landing-video" autoplay muted loop playsinline preload="metadata">
+            <source src="assets/css/media/background.mp4" type="video/mp4">
+          </video>
+          <div class="landing-hero__shade" aria-hidden="true"></div>
+          <div class="landing-hero__content">
+            <div class="landing-hero__title-wrap">
+              <p class="landing-eyebrow">AI-First Framework</p>
+              <h1 class="landing-title">
+                <span>Software</span>
+                <span class="landing-title__sub">that thinks with infrastructure</span>
+              </h1>
+              <p class="landing-kicker">Building the operating layer for startups that want AI to sit inside the product, not on top of it.</p>
+            </div>
+
+            <span class="landing-scroll__arrow" aria-hidden="true">↓</span>
+            <div class="landing-scroll">
+              <span>Scroll to explore</span>
+              <span class="landing-scroll__line" aria-hidden="true"></span>
+              <span>Always on</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="landing-marquee" aria-label="Capabilities marquee">
+        <div class="landing-marquee__viewport">
+          <div class="landing-marquee__track">
+            <span>Operational automation</span>
+            <span>Decision intelligence</span>
+            <span>Software infrastructure</span>
+            <span>AI-first systems</span>
+            <span>Product design</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="landing-section" id="products" data-section="products">
+        <div class="landing-section__inner">
+          <article class="landing-panel">
+            <div class="landing-panel__head">
+              <p class="landing-panel__label">Our Software</p>
+              <h2 class="landing-panel__title">Products, surfaces, and systems that stay calm under load.</h2>
+            </div>
+
+            <div class="landing-products">
+              <article class="product-card">
+                <div class="product-card__media">Insert image</div>
+                <div class="product-card__body">
+                  <p class="product-card__eyebrow">Platform</p>
+                  <h3 class="product-card__title">Operational AI core</h3>
+                  <p class="product-card__copy">A foundation layer for routing tasks, model responses, and internal workflows with less friction.</p>
+                  <div class="product-card__meta">
+                    <span class="meta-pill">Inference</span>
+                    <span class="meta-pill">Workflow</span>
+                    <span class="meta-pill">Automation</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="product-card">
+                <div class="product-card__media">Insert image</div>
+                <div class="product-card__body">
+                  <p class="product-card__eyebrow">Interface</p>
+                  <h3 class="product-card__title">Decision dashboard</h3>
+                  <p class="product-card__copy">A clear command surface for teams that need live signals, operational status, and a focused view of what matters.</p>
+                  <div class="product-card__meta">
+                    <span class="meta-pill">Signals</span>
+                    <span class="meta-pill">Monitoring</span>
+                    <span class="meta-pill">Control</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="product-card">
+                <div class="product-card__media">Insert image</div>
+                <div class="product-card__body">
+                  <p class="product-card__eyebrow">Automation</p>
+                  <h3 class="product-card__title">AI ops layer</h3>
+                  <p class="product-card__copy">A lighter system for orchestration, task routing, and reducing operational overhead across the stack.</p>
+                  <div class="product-card__meta">
+                    <span class="meta-pill">Ops</span>
+                    <span class="meta-pill">Scale</span>
+                    <span class="meta-pill">Routing</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="landing-section" id="stack" data-section="stack">
+        <div class="landing-section__inner">
+          <article class="landing-panel">
+            <div class="landing-panel__head">
+              <p class="landing-panel__label">System Stack</p>
+              <h2 class="landing-panel__title">A layered framework for AI-first delivery.</h2>
+            </div>
+
+            <div class="landing-stack">
+              <article class="stack-card">
+                <div class="stack-card__index">01</div>
+                <div>
+                  <h3>Sense</h3>
+                  <p>Ingest data, signals, and system events into a single operating view.</p>
+                </div>
+                <span>Context layer</span>
+              </article>
+              <article class="stack-card">
+                <div class="stack-card__index">02</div>
+                <div>
+                  <h3>Reason</h3>
+                  <p>Route AI and automation through a controlled policy surface.</p>
+                </div>
+                <span>Decision layer</span>
+              </article>
+              <article class="stack-card">
+                <div class="stack-card__index">03</div>
+                <div>
+                  <h3>Act</h3>
+                  <p>Push changes back into product, operations, and support with less drift.</p>
+                </div>
+                <span>Execution layer</span>
+              </article>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="landing-section" id="projects" data-section="projects">
+        <div class="landing-section__inner">
+          <article class="landing-panel">
+            <div class="landing-panel__head">
+              <p class="landing-panel__label">Top Projects</p>
+              <h2 class="landing-panel__title">Codenames for the work in motion.</h2>
+            </div>
+
+            <div class="landing-projects">
+              <div class="project-row">
+                <div class="project-index">01</div>
+                <h3 class="project-name">AURORA</h3>
+                <div class="project-code">AI orchestration</div>
+              </div>
+              <div class="project-row">
+                <div class="project-index">02</div>
+                <h3 class="project-name">CIPHER</h3>
+                <div class="project-code">Secure decisioning</div>
+              </div>
+              <div class="project-row">
+                <div class="project-index">03</div>
+                <h3 class="project-name">NEXUS</h3>
+                <div class="project-code">Infrastructure control</div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="landing-section" id="contact-band" data-section="contact-band">
+        <div class="landing-section__inner">
+          <div class="landing-pitch">
+            <article class="landing-pitch__card">
+              <h2 class="landing-pitch__title">Built for teams that need AI in the backbone.</h2>
+              <p class="landing-pitch__copy">Every layer is designed to be clear enough for operators and strong enough for the systems underneath.</p>
+            </article>
+            <article class="landing-pitch__card landing-pitch__card--dark">
+              <h2 class="landing-pitch__title">Minimal on the surface. Serious underneath.</h2>
+              <p class="landing-pitch__copy">A calm visual system, measured motion, and room for the products, projects, and proof points to do the talking.</p>
+            </article>
+          </div>
+
+          <div class="landing-cta-band">
+            <div>
+              <p class="landing-panel__label">Next step</p>
+              <h2>Tell us what you are building.</h2>
+            </div>
+            <a class="landing-cta landing-cta--dark" href="pages/contact.html">Start a conversation</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="landing-footer">
+      <div class="landing-footer__inner">
+        <div class="landing-footer__top">
+          <div class="landing-footer__brand">
+            <strong>ASHIR TECH</strong>
+            <span>AI-first infrastructure for startup teams.</span>
+          </div>
+
+          <div class="landing-socials">
+            <a class="social-link" href="#">LinkedIn</a>
+            <a class="social-link" href="#">X</a>
+            <a class="social-link" href="#">GitHub</a>
+            <a class="social-link" href="#">YouTube</a>
+          </div>
+        </div>
+
+        <div class="landing-footer__bottom">
+          <div>© 2026 ASHIR TECH. All rights reserved.</div>
+          <div class="landing-footer__links">
+            <a href="pages/about.html">About</a>
+            <a href="pages/services.html">Services</a>
+            <a href="pages/projects.html">Projects</a>
+            <a href="pages/contact.html">Contact</a>
+            <a href="pages/faq.html">FAQ</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
 </body>
 </html>
