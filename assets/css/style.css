@@ -14,13 +14,15 @@
 
 @font-face {
   font-family: "Megrim";
-  src: url("fonts/Megrim/Megrim-Regular.ttf") format("truetype");
+  src: url("fonts/Megrim/Megrim-Regular.woff2") format("woff2"),
+       url("fonts/Megrim/Megrim-Regular.ttf") format("truetype");
   font-display: swap;
 }
 
 @font-face {
   font-family: "Offside";
-  src: url("fonts/Offside/Offside-Regular.ttf") format("truetype");
+  src: url("fonts/Offside/Offside-Regular.woff2") format("woff2"),
+       url("fonts/Offside/Offside-Regular.ttf") format("truetype");
   font-display: swap;
 }
 
