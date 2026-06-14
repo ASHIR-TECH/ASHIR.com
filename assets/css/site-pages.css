@@ -791,6 +791,8 @@ details.template-card[open] {
 :root[data-theme="light"] .footer-brand p,
 :root[data-theme="light"] .footer-meta span,
 :root[data-theme="light"] .footer-links a,
+:root[data-theme="light"] .footer-actions a,
+:root[data-theme="light"] .footer-colophon span,
 :root[data-theme="light"] .feature-item span,
 :root[data-theme="light"] .detail-card p,
 :root[data-theme="light"] .contact-item small,
@@ -813,13 +815,15 @@ details.template-card[open] {
 }
 
 :root[data-theme="light"] .contact-form button,
-:root[data-theme="light"] .template-link {
+:root[data-theme="light"] .template-link,
+:root[data-theme="light"] .footer-actions a {
   background: rgba(255, 255, 255, 0.78);
   border-color: rgba(15, 23, 42, 0.12);
   color: #0f172a;
 }
 
-:root[data-theme="light"] .contact-form button:hover {
+:root[data-theme="light"] .contact-form button:hover,
+:root[data-theme="light"] .footer-actions a:hover {
   border-color: rgba(14, 165, 233, 0.3);
   background: rgba(14, 165, 233, 0.08);
 }
