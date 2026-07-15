@@ -11,7 +11,6 @@ body.landing-page {
     radial-gradient(circle at top, rgba(0, 0, 0, 0.05), transparent 24%),
     linear-gradient(180deg, #faf9f5 0%, var(--landing-bg) 100%);
   color: var(--landing-text);
-  scroll-behavior: smooth;
 }
 
 body.landing-page {
@@ -1049,10 +1048,27 @@ body.landing-page main {
   }
 }
 
+.landing-section[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 640ms ease, transform 640ms ease;
+}
+
+.landing-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .product-card,
   .stack-card::before,
   .landing-shell::before {
     animation: none;
+  }
+
+  .landing-section[data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
