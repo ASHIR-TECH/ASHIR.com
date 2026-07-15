@@ -32,7 +32,6 @@
         </div>
 
         <div class="landing-header__actions">
-          
           <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open navigation menu">
             <img class="nav-toggle__icon" src="assets/css/images/whitemode%20drop-down%20button.png" alt="" aria-hidden="true">
           </button>
@@ -57,13 +56,14 @@
     </aside>
 
     <main>
+      <!-- ═══ HERO ═══ -->
       <section class="landing-hero" id="hero" data-section="hero">
         <div class="landing-hero__sticky">
           <video class="landing-video" autoplay muted loop playsinline preload="metadata">
-            <source src="assets/css/media/background.mp4" type="video/mp4">
+            <source src="media/background.mp4" type="video/mp4">
           </video>
           <div class="landing-hero__shade" aria-hidden="true"></div>
-          <div class="landing-hero__content">
+          <div class="landing-hero__content landing-hero__content--top">
             <div class="landing-hero__title-wrap">
               <p class="landing-eyebrow">AI-First Framework</p>
               <h1 class="landing-title">
@@ -72,17 +72,11 @@
               </h1>
               <p class="landing-kicker">Building the operating layer for startups that want AI to sit inside the product, not on top of it.</p>
             </div>
-
-            <span class="landing-scroll__arrow" aria-hidden="true">↓</span>
-            <div class="landing-scroll">
-              <span></span>
-              <span class="landing-scroll__line" aria-hidden="true"></span>
-              <span></span>
-            </div>
           </div>
         </div>
       </section>
 
+      <!-- ═══ MARQUEE ═══ -->
       <section class="landing-marquee" aria-label="Capabilities marquee">
         <div class="landing-marquee__viewport">
           <div class="landing-marquee__track">
@@ -95,12 +89,12 @@
         </div>
       </section>
 
-      <section class="landing-section" id="products" data-section="products" data-reveal>
+      <!-- ═══ PRODUCTS ═══ -->
+      <section class="landing-section l-section--full" id="products" data-section="products">
         <div class="landing-section__inner">
           <article class="landing-panel">
             <div class="landing-panel__head">
               <p class="landing-panel__label">Our Software</p>
-              <h2 class="landing-panel__title"></h2>
             </div>
 
             <div class="landing-products">
@@ -158,7 +152,8 @@
         </div>
       </section>
 
-      <section class="landing-section" id="stack" data-section="stack" data-reveal>
+      <!-- ═══ STACK ═══ -->
+      <section class="landing-section l-section--full" id="stack" data-section="stack">
         <div class="landing-section__inner">
           <article class="landing-panel">
             <div class="landing-panel__head">
@@ -196,7 +191,8 @@
         </div>
       </section>
 
-      <section class="landing-section" id="projects" data-section="projects" data-reveal>
+      <!-- ═══ PROJECTS ═══ -->
+      <section class="landing-section l-section--full" id="projects" data-section="projects">
         <div class="landing-section__inner">
           <article class="landing-panel">
             <div class="landing-panel__head">
@@ -208,7 +204,7 @@
               <a href="pages/adtp.html" class="project-row" style="text-decoration:none;color:inherit;">
                 <div class="project-index">01</div>
                 <h3 class="project-name">A.D.T.P</h3>
-                <div class="project-code">AGENTIC TRASNFER SYSTEM</div>
+                <div class="project-code">AGENTIC TRANSFER SYSTEM</div>
               </a>
               <!---
               <div class="project-row">
@@ -227,7 +223,8 @@
       -->
       </section>
 
-      <section class="landing-section" id="contact-band" data-section="contact-band" data-reveal>
+      <!-- ═══ PITCH ═══ -->
+      <section class="landing-section l-section--full" id="contact-band" data-section="contact-band">
         <div class="landing-section__inner">
           <div class="landing-pitch">
             <article class="landing-pitch__card">
@@ -268,7 +265,7 @@
         </div>
 
         <div class="landing-footer__bottom">
-          <div>© 2026 ASHIR TECH. All rights reserved.</div>
+          <div>&copy; 2026 ASHIR TECH. All rights reserved.</div>
           <div class="landing-footer__links">
             <a href="pages/about.html">About</a>
             <a href="pages/services.html">Services</a>
