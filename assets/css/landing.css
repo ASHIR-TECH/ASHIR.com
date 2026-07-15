@@ -325,7 +325,7 @@ body.landing-page main {
 
 .landing-panel__label {
   margin: 0;
-  font-size: 0.76rem;
+  font-size: 1.5rem;
   letter-spacing: 0.36em;
   text-transform: uppercase;
   color: var(--landing-muted);
@@ -336,12 +336,17 @@ body.landing-page main {
   font-family: "Offside", sans-serif;
   font-size: clamp(2rem, 4vw, 3.6rem);
   letter-spacing: 0.04em;
+  font-size: 2.1rem;
 }
 
 .landing-products {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
+}
+
+.landing-products > .product-card:only-child {
+  grid-column: 2;
 }
 
 .product-card {
@@ -353,15 +358,6 @@ body.landing-page main {
   background: rgba(255, 255, 255, 0.78);
   box-shadow: var(--landing-shadow);
   transition: transform 180ms ease, box-shadow 180ms ease;
-  animation: card-rise 700ms ease both;
-}
-
-.product-card:nth-child(2) {
-  animation-delay: 90ms;
-}
-
-.product-card:nth-child(3) {
-  animation-delay: 180ms;
 }
 
 .product-card:hover {
