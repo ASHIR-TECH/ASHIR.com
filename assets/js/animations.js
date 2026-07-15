@@ -1,152 +1,137 @@
 (() => {
-  if (typeof anime === "undefined") {
-    console.warn("[animations] anime.js not loaded");
+  if (typeof anime === "undefined") return;
+
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduced) {
+    document.querySelectorAll("[data-reveal]").forEach(el => el.classList.add("is-visible"));
     return;
   }
 
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    document.querySelectorAll("[data-reveal]").forEach(function(el) { el.classList.add("is-visible"); });
-    return;
-  }
+  const ease = "easeOutExpo";
 
-  console.log("[animations] anime.js loaded, starting animations");
-
-  var ease = "easeOutExpo";
-
-  anime.set(".landing-eyebrow", { opacity: 0, translateY: 30 });
-  anime.set(".landing-title", { opacity: 0, translateY: 50, scale: 0.95 });
-  anime.set(".landing-kicker", { opacity: 0, translateY: 30 });
-  anime.set(".landing-scroll__arrow", { opacity: 0, translateY: -10 });
-  anime.set(".landing-scroll", { opacity: 0 });
+  /* ── hero entrance ── */
+  anime.set(".landing-eyebrow", { opacity: 0, y: 30 });
+  anime.set(".landing-title", { opacity: 0, y: 50, scale: 0.95 });
+  anime.set(".landing-kicker", { opacity: 0, y: 30 });
 
   anime.timeline({ delay: 200, easing: ease })
-    .add({ targets: ".landing-eyebrow", opacity: [0, 1], translateY: [30, 0], duration: 800 })
-    .add({ targets: ".landing-title", opacity: [0, 1], translateY: [50, 0], scale: [0.95, 1], duration: 1000 }, "-=500")
-    .add({ targets: ".landing-kicker", opacity: [0, 1], translateY: [30, 0], duration: 800 }, "-=600")
-    .add({ targets: ".landing-scroll__arrow", opacity: [0, 1], translateY: [-10, 0], duration: 600 }, "-=300")
-    .add({ targets: ".landing-scroll", opacity: [0, 1], duration: 600 }, "-=400");
+    .add({ targets: ".landing-eyebrow", opacity: [0, 1], y: [30, 0], duration: 800 })
+    .add({ targets: ".landing-title", opacity: [0, 1], y: [50, 0], scale: [0.95, 1], duration: 1000 }, "-=500")
+    .add({ targets: ".landing-kicker", opacity: [0, 1], y: [30, 0], duration: 800 }, "-=600");
 
-  function revealSection(sectionSelector, childSelector, animProps, staggerMs) {
-    var section = document.querySelector(sectionSelector);
+  /* ── hero scroll-fade: content fades out as user scrolls ── */
+  const heroContent = document.querySelector(".landing-hero__content");
+  const heroSticky = document.querySelector(".landing-hero__sticky");
+  if (heroContent && heroSticky) {
+    const heroEls = heroContent.querySelectorAll(".landing-eyebrow, .landing-title, .landing-kicker");
+    let heroTicking = false;
+
+    const onScroll = () => {
+      const progress = Math.min(window.scrollY / window.innerHeight, 1);
+      const fade = 1 - progress;
+      heroContent.style.opacity = fade;
+      heroContent.style.transform = "translateY(" + (progress * 60) + "px)";
+      heroSticky.style.filter = "blur(" + (progress * 8) + "px)";
+      heroSticky.style.opacity = 1 - progress * 0.4;
+      heroTicking = false;
+    };
+
+    window.addEventListener("scroll", () => {
+      if (!heroTicking) { heroTicking = true; requestAnimationFrame(onScroll); }
+    }, { passive: true });
+    onScroll();
+  }
+
+  /* ── section reveal helper ── */
+  function revealSection(id, childSel, props, stagger) {
+    const section = document.querySelector(id);
     if (!section) return;
-
-    var children = section.querySelectorAll(childSelector);
+    const children = section.querySelectorAll(childSel);
     if (!children.length) return;
-
     anime.set(children, { opacity: 0 });
 
-    var observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          setTimeout(function() {
-            anime(Object.assign({}, animProps, {
-              targets: children,
-              delay: staggerMs ? anime.stagger(staggerMs) : 0
-            }));
-          }, 450);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-
-    observer.observe(section);
+    const obs = new IntersectionObserver(entries => {
+      const visible = entries.find(e => e.isIntersecting);
+      if (visible) {
+        setTimeout(() => {
+          anime(Object.assign({}, props, {
+            targets: children,
+            delay: stagger ? anime.stagger(stagger) : 0
+          }));
+        }, 300);
+        obs.unobserve(section);
+      }
+    }, { threshold: 0.15 });
+    obs.observe(section);
   }
 
-  var productsSection = document.querySelector("#products");
-  if (productsSection) {
-    var card1 = productsSection.querySelector(".product-card");
-
-    if (card1) {
-      anime.set(card1, { opacity: 0, scale: 0.9, translateY: 40 });
-
-      var prodObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            setTimeout(function() {
-              anime({
-                targets: card1,
-                opacity: [0, 1],
-                scale: [0.9, 1],
-                translateY: [40, 0],
-                duration: 900,
-                easing: ease
-              });
-            }, 450);
-            prodObserver.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.1 });
-
-      prodObserver.observe(productsSection);
+  /* ── products ── */
+  const prodSection = document.querySelector("#products");
+  if (prodSection) {
+    const card = prodSection.querySelector(".product-card");
+    if (card) {
+      anime.set(card, { opacity: 0, scale: 0.92, y: 50 });
+      const prodObs = new IntersectionObserver(entries => {
+        if (entries.some(e => e.isIntersecting)) {
+          setTimeout(() => {
+            anime({ targets: card, opacity: [0, 1], scale: [0.92, 1], y: [50, 0], duration: 1000, easing: ease });
+          }, 300);
+          prodObs.unobserve(prodSection);
+        }
+      }, { threshold: 0.15 });
+      prodObs.observe(prodSection);
     }
   }
 
+  /* ── stack cards ── */
   revealSection("#stack", ".stack-card", {
-    opacity: [0, 1], translateX: [-60, 0], duration: 900, easing: ease
-  }, 160);
-
-  revealSection("#projects", ".project-row", {
-    opacity: [0, 1], translateX: [-80, 0], duration: 800, easing: ease
-  }, 140);
-
-  revealSection("#contact-band", ".landing-pitch__card", {
-    opacity: [0, 1], translateY: [50, 0], scale: [0.97, 1], duration: 900, easing: ease
+    opacity: [0, 1], x: [-60, 0], duration: 900, easing: ease
   }, 180);
 
+  /* ── project rows ── */
+  revealSection("#projects", ".project-row", {
+    opacity: [0, 1], x: [-80, 0], duration: 800, easing: ease
+  }, 160);
+
+  /* ── pitch cards ── */
+  revealSection("#contact-band", ".landing-pitch__card", {
+    opacity: [0, 1], y: [60, 0], scale: [0.97, 1], duration: 1000, easing: ease
+  }, 200);
+
+  /* ── cta band ── */
   revealSection("#contact-band", ".landing-cta-band", {
-    opacity: [0, 1], translateY: [40, 0], duration: 800, easing: ease
+    opacity: [0, 1], y: [40, 0], duration: 800, easing: ease
   }, 0);
 
-  var footer = document.querySelector(".landing-footer");
+  /* ── footer ── */
+  const footer = document.querySelector(".landing-footer");
   if (footer) {
-    var footerChildren = footer.querySelectorAll(".landing-footer__top, .landing-footer__bottom");
-    if (footerChildren.length) {
-      anime.set(footerChildren, { opacity: 0 });
-
-      var footerObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            setTimeout(function() {
-              anime({
-                targets: footerChildren,
-                opacity: [0, 1],
-                translateY: [30, 0],
-                duration: 700,
-                easing: ease,
-                delay: anime.stagger(120)
-              });
-            }, 200);
-            footerObserver.unobserve(entry.target);
-          }
-        });
+    const footerParts = footer.querySelectorAll(".landing-footer__top, .landing-footer__bottom");
+    if (footerParts.length) {
+      anime.set(footerParts, { opacity: 0 });
+      const fObs = new IntersectionObserver(entries => {
+        if (entries.some(e => e.isIntersecting)) {
+          setTimeout(() => {
+            anime({ targets: footerParts, opacity: [0, 1], y: [30, 0], duration: 700, easing: ease, delay: anime.stagger(120) });
+          }, 200);
+          fObs.unobserve(footer);
+        }
       }, { threshold: 0.1 });
-
-      footerObserver.observe(footer);
+      fObs.observe(footer);
     }
 
-    var socialLinks = footer.querySelectorAll(".social-link");
-    if (socialLinks.length) {
-      anime.set(socialLinks, { opacity: 0, scale: 0.8 });
-
-      var socialObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            setTimeout(function() {
-              anime({
-                targets: socialLinks,
-                opacity: [0, 1],
-                scale: [0.8, 1],
-                duration: 500,
-                easing: ease,
-                delay: anime.stagger(80)
-              });
-            }, 500);
-            socialObserver.unobserve(entry.target);
-          }
-        });
+    const socials = footer.querySelectorAll(".social-link");
+    if (socials.length) {
+      anime.set(socials, { opacity: 0, scale: 0.8 });
+      const sObs = new IntersectionObserver(entries => {
+        if (entries.some(e => e.isIntersecting)) {
+          setTimeout(() => {
+            anime({ targets: socials, opacity: [0, 1], scale: [0.8, 1], duration: 500, easing: ease, delay: anime.stagger(80) });
+          }, 500);
+          sObs.unobserve(footer);
+        }
       }, { threshold: 0.1 });
-
-      socialObserver.observe(footer);
+      sObs.observe(footer);
     }
   }
 })();
