@@ -1,0 +1,24 @@
+{
+  "name": "ashir.com",
+  "version": "1.0.0",
+  "description": "The Official Website for ASHIR TECH",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ASHIR-TECH/ASHIR.com.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ASHIR-TECH/ASHIR.com/issues"
+  },
+  "homepage": "https://github.com/ASHIR-TECH/ASHIR.com#readme",
+  "dependencies": {
+    "animejs": "^4.5.0"
+  }
+}
