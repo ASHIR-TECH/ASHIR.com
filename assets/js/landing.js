@@ -38,10 +38,62 @@
   sections.forEach((section) => observer.observe(section));
 
   links.forEach((link) => {
-    link.addEventListener("click", () => {
+    link.addEventListener("click", (e) => {
       setActive(link.dataset.sectionLink);
+      const target = document.querySelector(link.getAttribute("href"));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     });
   });
+
+  const revealTargets = document.querySelectorAll(".landing-section[data-reveal]");
+
+  if (revealTargets.length && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+    revealTargets.forEach((el) => revealObserver.observe(el));
+  } else {
+    revealTargets.forEach((el) => el.classList.add("is-visible"));
+  }
+
+  let scrollTarget = window.scrollY;
+  let scrollAnimating = false;
+
+  const smoothScroll = () => {
+    const current = window.scrollY;
+    const diff = scrollTarget - current;
+    if (Math.abs(diff) < 0.5) {
+      window.scrollTo({ top: scrollTarget, behavior: "auto" });
+      scrollAnimating = false;
+      return;
+    }
+    window.scrollTo({ top: current + diff * 0.12, behavior: "auto" });
+    scrollAnimating = true;
+    requestAnimationFrame(smoothScroll);
+  };
+
+  const isLandingPage = document.body.classList.contains("landing-page");
+
+  if (isLandingPage && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    window.addEventListener("wheel", (e) => {
+      e.preventDefault();
+      scrollTarget = Math.max(0, Math.min(scrollTarget + e.deltaY * 0.5, document.documentElement.scrollHeight - window.innerHeight));
+      if (!scrollAnimating) {
+        requestAnimationFrame(smoothScroll);
+      }
+    }, { passive: false });
+  }
 
   const hero = document.querySelector(".landing-hero");
 

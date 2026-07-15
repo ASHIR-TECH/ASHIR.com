@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A.D.T.P | ASHIR TECH</title>
+  <link rel="preload" href="../assets/css/fonts/Megrim/Megrim-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/css/fonts/Offside/Offside-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/nav.css">
+  <script defer src="../assets/js/theme.js"></script>
+  <script defer src="../assets/js/nav.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+      color: #f7f8fb;
+      font-family: "Offside", sans-serif;
+    }
+
+    /* ── orb background ── */
+    .orb-stage {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 50% 48%, rgba(124,45,18,.28), transparent 60%),
+        radial-gradient(ellipse 120% 120% at 50% 50%, #0d0400 0%, #050201 55%, #000 100%);
+    }
+
+    .orb-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+    }
+
+    .orb-ambient {
+      width: 95vmin;
+      height: 95vmin;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: radial-gradient(circle, #7c2d12 0%, rgba(124,45,18,.28) 30%, transparent 62%);
+      filter: blur(50px);
+      opacity: .42;
+      pointer-events: none;
+    }
+
+    .orb-rings-svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 240vmin;
+      height: 240vmin;
+      transform: translate(-50%, -50%);
+      overflow: visible;
+      pointer-events: none;
+    }
+
+    #orb-ringsBack { z-index: 1; }
+    #orb-ringsFront { z-index: 3; }
+
+    .orb-globe {
+      --globe-size: 52vmin;
+      width: var(--globe-size);
+      height: var(--globe-size);
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: radial-gradient(circle, #000 0%, #000 60%, #170800 76%, #3a1204 89%, #000 100%);
+      z-index: 2;
+    }
+
+    .orb-corona {
+      position: absolute;
+      inset: -16%;
+      border-radius: 50%;
+      background: radial-gradient(circle,
+        transparent 0%, transparent 74%,
+        rgba(194,65,12,.5) 80%,
+        rgba(124,45,18,.35) 92%,
+        transparent 100%);
+      filter: blur(14px);
+      animation: orb-heartbeat 2.6s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes orb-heartbeat {
+      0%,100% { transform: scale(1);     opacity: .55; }
+      8%      { transform: scale(1.055); opacity: .72; }
+      17%     { transform: scale(.985);  opacity: .52; }
+      26%     { transform: scale(1.035); opacity: .66; }
+      38%     { transform: scale(1);     opacity: .55; }
+    }
+
+    .orb-globe-spin {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg,
+        transparent 0deg, transparent 60deg,
+        rgba(217,119,6,.22) 105deg,
+        rgba(124,45,18,.15) 140deg,
+        transparent 190deg,
+        transparent 360deg);
+      -webkit-mask: radial-gradient(circle closest-side, transparent 82%, #000 88%, #000 95%, transparent 100%);
+              mask: radial-gradient(circle closest-side, transparent 82%, #000 88%, #000 95%, transparent 100%);
+      filter: blur(5px);
+      animation: orb-slow-spin 46s linear infinite;
+    }
+
+    @keyframes orb-slow-spin { to { transform: rotate(360deg); } }
+
+    .orb-limb {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      box-shadow:
+        inset 0 0 40px 6px rgba(0,0,0,.6),
+        0 0 20px 3px rgba(217,119,6,.15);
+      pointer-events: none;
+    }
+
+    /* ── layout ── */
+    .adtp-page {
+      position: relative;
+      z-index: 1;
+      height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 0 clamp(2rem, 5vw, 6rem);
+      gap: 2rem;
+    }
+
+    .adtp-left {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      pointer-events: auto;
+    }
+
+    .adtp-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.36em;
+      text-transform: uppercase;
+      color: rgba(247, 248, 251, 0.5);
+    }
+
+    .adtp-title {
+      font-family: "Megrim", sans-serif;
+      font-size: clamp(2.4rem, 5vw, 4.5rem);
+      letter-spacing: 0.06em;
+      line-height: 0.95;
+      color: #fff;
+    }
+
+    .adtp-desc {
+      max-width: 28rem;
+      font-family: sans-serif;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: rgba(247, 248, 251, 0.65);
+    }
+
+    .adtp-actions {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .adtp-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-height: 2.6rem;
+      padding: 0 1.4rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.06);
+      color: #f7f8fb;
+      font-family: "Offside", sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+    }
+
+    .adtp-btn:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.3);
+      transform: translateY(-1px);
+    }
+
+    .adtp-btn--primary {
+      background: #c2410c;
+      border-color: #c2410c;
+      color: #fff;
+    }
+
+    .adtp-btn--primary:hover {
+      background: #ea580c;
+      border-color: #ea580c;
+    }
+
+    .adtp-version {
+      font-family: sans-serif;
+      font-size: 0.72rem;
+      color: rgba(247, 248, 251, 0.35);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── right: preview gallery ── */
+    .adtp-right {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .adtp-gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+      width: 100%;
+      max-width: 480px;
+    }
+
+    .adtp-gallery__item {
+      aspect-ratio: 16/10;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      cursor: pointer;
+      transition: border-color 180ms ease, transform 180ms ease;
+    }
+
+    .adtp-gallery__item:hover {
+      border-color: rgba(255,255,255,0.2);
+      transform: scale(1.02);
+    }
+
+    .adtp-gallery__item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .adtp-gallery__label {
+      font-family: sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(247,248,251,0.4);
+      text-align: center;
+      margin-top: 0.3rem;
+    }
+
+    /* ── lightbox ── */
+    .adtp-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.92);
+      backdrop-filter: blur(12px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 300ms ease;
+    }
+
+    .adtp-lightbox.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .adtp-lightbox img {
+      max-width: 90vw;
+      max-height: 85vh;
+      border-radius: 0.75rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    .adtp-lightbox__close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 180ms ease;
+    }
+
+    .adtp-lightbox__close:hover {
+      background: rgba(255,255,255,0.18);
+    }
+
+    /* ── pull-down nav (matches landing-header__bar) ── */
+    .adtp-header {
+      position: fixed;
+      inset: 0.6rem 0 auto;
+      z-index: 30;
+      pointer-events: none;
+      transform: translateY(calc(-100% - 1rem));
+      transition: transform 320ms cubic-bezier(0.4,0,0.2,1), opacity 320ms ease;
+      opacity: 0;
+    }
+
+    .adtp-header.is-visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .adtp-header__bar {
+      position: relative;
+      width: min(100% - 2rem, 1180px);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.7rem;
+      padding: 0.38rem 0.5rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 1rem;
+      background: linear-gradient(180deg, rgba(10,12,16,0.72), rgba(10,12,16,0.48));
+      backdrop-filter: blur(24px) saturate(1.5);
+      box-shadow: 0 18px 44px rgba(0,0,0,0.28);
+      pointer-events: auto;
+    }
+
+    .adtp-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      color: #f7f8fb;
+      text-decoration: none;
+    }
+
+    .adtp-brand__mark {
+      width: 0.85rem;
+      height: 0.85rem;
+      border-radius: 999px;
+      border: 2px solid currentColor;
+      display: inline-block;
+    }
+
+    .adtp-brand__name {
+      font-family: "Offside", sans-serif;
+      letter-spacing: 0.04em;
+      font-size: 1.1rem;
+    }
+
+    .adtp-header__actions {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .adtp-header__actions .theme-toggle {
+      width: 10rem;
+      height: 2.9rem;
+      border-color: rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+      color: #f7f8fb;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    }
+
+    .adtp-header__actions .nav-toggle {
+      width: 9.25rem;
+      height: 2.9rem;
+      border-color: rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+      color: #f7f8fb;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    }
+
+    .adtp-header__bar .site-nav {
+      right: 1rem;
+      top: calc(100% + 0.75rem);
+      border-color: rgba(255,255,255,0.1);
+      background: rgba(13,15,18,0.96);
+    }
+
+    .adtp-header__bar .site-nav a {
+      color: #fff;
+    }
+
+    /* ── responsive ── */
+    @media (max-width: 860px) {
+      .adtp-page {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+        padding: 5rem 1.5rem 2rem;
+        overflow-y: auto;
+      }
+
+      .adtp-right {
+        padding-bottom: 2rem;
+      }
+
+      .orb-globe { --globe-size: 36vmin; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .orb-corona { animation: none; }
+      .orb-globe-spin { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- hover-reveal header (matches landing-header__bar) -->
+  <header class="adtp-header" id="adtp-header">
+    <div class="adtp-header__bar">
+      <a class="adtp-brand" href="../index.html" aria-label="ASHIR TECH home">
+        <span class="adtp-brand__mark" aria-hidden="true"></span>
+        <span class="adtp-brand__name">ASHIR TECH</span>
+      </a>
+
+      <div class="adtp-header__actions">
+        <div class="theme-switcher">
+          <button class="theme-toggle" type="button" aria-label="Toggle theme">
+            <span class="theme-toggle__label">Dark mode</span>
+          </button>
+        </div>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open navigation menu">
+          <img class="nav-toggle__icon" src="../assets/css/images/whitemode%20drop-down%20button.png" alt="" aria-hidden="true">
+        </button>
+      </div>
+
+      <nav class="site-nav" id="site-nav" aria-label="Primary">
+        <a href="../index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="projects.html">Projects</a>
+        <a href="contact.html">Contact</a>
+        <a href="faq.html">FAQ</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- orb background -->
+  <div class="orb-stage">
+    <div class="orb-ambient orb-center"></div>
+    <svg id="orb-ringsBack" class="orb-rings-svg" viewBox="-120 -120 240 240"></svg>
+    <div class="orb-globe orb-center">
+      <div class="orb-globe-spin"></div>
+      <div class="orb-limb"></div>
+      <div class="orb-corona"></div>
+    </div>
+    <svg id="orb-ringsFront" class="orb-rings-svg" viewBox="-120 -120 240 240"></svg>
+  </div>
+
+  <!-- lightbox -->
+  <div class="adtp-lightbox" id="adtp-lightbox">
+    <button class="adtp-lightbox__close" id="adtp-lb-close">&times;</button>
+    <img id="adtp-lb-img" src="" alt="Preview">
+  </div>
+
+  <!-- page content -->
+  <div class="adtp-page">
+    <div class="adtp-left">
+      <p class="adtp-eyebrow">Agent Direct Transfer System</p>
+      <h1 class="adtp-title">A.D.T.P</h1>
+      <p class="adtp-desc">ADTP is a one-on-one file transfer protocol that connects your devices directly — peer-to-peer, encrypted end-to-end, with no intermediary server. It's built for the way you actually work: your laptop to your desktop, your workstation to your homelab, one trusted machine to another. Every transfer, every agent instruction, every audit trail is between you and your peer — not routed through a third party, not stored in the cloud, not exposed to anyone else's infrastructure. A CLI for scripting, a desktop app for visual control, and an AI agent that follows your commands — all talking directly to each other.</p>
+      <div class="adtp-actions">
+        <a class="adtp-btn adtp-btn--primary" href="#">&#11015; Download</a>
+        <a class="adtp-btn" href="#adtp-info">Learn more</a>
+      </div>
+      <span class="adtp-version">v1.0.0 &middot; 12 MB &middot; Windows / macOS / Linux</span>
+    </div>
+
+    <div class="adtp-right">
+      <div class="adtp-gallery">
+        <div class="adtp-gallery__item" data-src="../media/ADTP/frame_000030.jpg">
+          <img src="/media/Screenshot From 2026-07-15 18-44-34.png" alt="Dashboard view" loading="lazy">
+        </div>
+        <div class="adtp-gallery__item" data-src="../media/ADTP/frame_000080.jpg">
+          <img src="/media/Screenshot From 2026-07-15 18-44-41.png" alt="Routing panel" loading="lazy">
+        </div>
+        <div class="adtp-gallery__item" data-src="../media/ADTP/frame_000130.jpg">
+          <img src="/media/Screenshot From 2026-07-15 18-45-05.png" alt="Policy surface" loading="lazy">
+        </div>
+        <div class="adtp-gallery__item" data-src="../media/ADTP/frame_000180.jpg">
+          <img src="/media/Screenshot From 2026-07-15 18-45-23.png" alt="System overview" loading="lazy">
+        </div>
+      </div>
+      <p class="adtp-gallery__label">Click To Preview.</p>
+    </div>
+  </div>
+
+  <!-- orb ring animation -->
+  <script>
+  (function(){
+    var GLOBE_R=26, TILT_X=74*Math.PI/180, TILT_Z=18*Math.PI/180, PERSP_D=210;
+    var cosX=Math.cos(TILT_X),sinX=Math.sin(TILT_X),cosZ=Math.cos(TILT_Z),sinZ=Math.sin(TILT_Z);
+    var RING_LIGHT=[253,232,200],RING_SOFT=[240,192,132],RING=[217,119,6],RING_DUSK=[194,133,106];
+    function lerp(a,b,t){return a+(b-a)*t}
+    function lerpColor(c1,c2,t){return"rgb("+Math.round(lerp(c1[0],c2[0],t))+","+Math.round(lerp(c1[1],c2[1],t))+","+Math.round(lerp(c1[2],c2[2],t))+")"}
+    function seededRandom(s){var x=Math.sin(s*999.999)*10000;return x-Math.floor(x)}
+    function project(r,theta){
+      var x=r*Math.cos(theta),y=r*Math.sin(theta),y1=y*cosX,z1=y*sinX;
+      var x2=x*cosZ-y1*sinZ,y2=x*sinZ+y1*cosZ,scale=1/(1-z1/PERSP_D);
+      return{x:x2*scale,y:y2*scale,front:z1>0};
+    }
+    var STEPS=130,thetas=[];
+    for(var i=0;i<=STEPS;i++)thetas.push((i/STEPS)*Math.PI*2);
+    function buildLoop(baseR,seed){
+      var fA=2+Math.floor(seededRandom(seed*3+1)*2),fB=5+Math.floor(seededRandom(seed*7+2)*3);
+      var pA=seededRandom(seed*11+3)*Math.PI*2,pB=seededRandom(seed*13+4)*Math.PI*2;
+      var aA=.55+seededRandom(seed*5+5)*.45,aB=.2+seededRandom(seed*9+6)*.3;
+      var sp=(seed%2===0?1:-1)*(.12+seededRandom(seed*17+8)*.1);
+      return{baseR:baseR,freqA:fA,freqB:fB,phaseA:pA,phaseB:pB,ampA:aA,ampB:aB,speed:sp,phaseOffset:0};
+    }
+    function pointsFor(loop){
+      var pts=new Array(thetas.length);
+      for(var i=0;i<thetas.length;i++){
+        var th=thetas[i];
+        var n=loop.ampA*Math.sin(loop.freqA*th+loop.phaseA+loop.phaseOffset)
+            +loop.ampB*Math.sin(loop.freqB*th+loop.phaseB+loop.phaseOffset*1.7);
+        pts[i]=project(loop.baseR+n,th);
+      }
+      return pts;
+    }
+    function splitRuns(pts){
+      var runs=[],cur=[pts[0]],curFront=pts[0].front;
+      for(var i=1;i<pts.length;i++){
+        if(pts[i].front===curFront){cur.push(pts[i])}
+        else{runs.push({front:curFront,pts:cur});cur=[pts[i]];curFront=pts[i].front}
+      }
+      runs.push({front:curFront,pts:cur});return runs;
+    }
+    function toPathD(pts){return pts.map(function(p,i){return(i===0?"M":"L")+p.x.toFixed(2)+","+p.y.toFixed(2)}).join(" ")}
+    var svgNS="http://www.w3.org/2000/svg";
+    var backSvg=document.getElementById("orb-ringsBack"),frontSvg=document.getElementById("orb-ringsFront");
+    var loopDefs=[];
+    var CORE_N=16,CORE_START=GLOBE_R*1.06,CORE_STEP=.85;
+    for(var i=0;i<CORE_N;i++)loopDefs.push({r:CORE_START+i*CORE_STEP,t:i/(CORE_N-1),kind:"core",seed:i+1});
+    [45,51.5,59,67].forEach(function(r,i){loopDefs.push({r:r,t:i/3,kind:"outer",seed:CORE_N+i+1})});
+    var rendered=[];
+    loopDefs.forEach(function(def){
+      var loop=buildLoop(def.r,def.seed),color,width,opacity;
+      if(def.kind==="core"){color=lerpColor(RING_LIGHT,RING,def.t*.75);width=lerp(.22,.13,def.t);opacity=lerp(.85,.55,def.t)}
+      else{color=lerpColor(RING,RING_DUSK,def.t);width=lerp(.16,.1,def.t);opacity=lerp(.5,.32,def.t)}
+      var backPaths=[],frontPaths=[];
+      function makePath(){var p=document.createElementNS(svgNS,"path");p.setAttribute("fill","none");p.setAttribute("stroke",color);p.setAttribute("stroke-width",width.toFixed(3));p.setAttribute("stroke-linecap","round");p.style.opacity=opacity.toFixed(2);return p}
+      for(var k=0;k<3;k++){var bp=makePath();backSvg.appendChild(bp);backPaths.push(bp);var fp=makePath();frontSvg.appendChild(fp);frontPaths.push(fp)}
+      rendered.push({loop:loop,backPaths:backPaths,frontPaths:frontPaths});
+    });
+    function update(){
+      rendered.forEach(function(r){
+        var pts=pointsFor(r.loop),runs=splitRuns(pts),bi=0,fi=0;
+        runs.forEach(function(run){
+          if(run.pts.length<2)return;
+          var d=toPathD(run.pts);
+          if(run.front){if(fi<r.frontPaths.length){r.frontPaths[fi].setAttribute("d",d);r.frontPaths[fi].style.display="";fi++}}
+          else{if(bi<r.backPaths.length){r.backPaths[bi].setAttribute("d",d);r.backPaths[bi].style.display="";bi++}}
+        });
+        for(;fi<r.frontPaths.length;fi++)r.frontPaths[fi].style.display="none";
+        for(;bi<r.backPaths.length;bi++)r.backPaths[bi].style.display="none";
+      });
+    }
+    var lastT=null;
+    function tick(t){
+      if(lastT===null)lastT=t;
+      var dt=(t-lastT)/1000;lastT=t;
+      rendered.forEach(function(r){r.loop.phaseOffset+=r.loop.speed*dt});
+      update();requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  })();
+  </script>
+
+  <!-- lightbox script -->
+  <script>
+  (function(){
+    var lightbox=document.getElementById("adtp-lightbox");
+    var lbImg=document.getElementById("adtp-lb-img");
+    var lbClose=document.getElementById("adtp-lb-close");
+
+    document.querySelectorAll(".adtp-gallery__item").forEach(function(item){
+      item.addEventListener("click",function(e){
+        e.preventDefault();
+        var img=item.querySelector("img");
+        lbImg.src=img?img.src:item.getAttribute("data-src");
+        lightbox.classList.add("is-open");
+      });
+    });
+
+    lbClose.addEventListener("click",function(){lightbox.classList.remove("is-open")});
+    lightbox.addEventListener("click",function(e){if(e.target===lightbox)lightbox.classList.remove("is-open")});
+    document.addEventListener("keydown",function(e){if(e.key==="Escape")lightbox.classList.remove("is-open")});
+  })();
+  </script>
+
+  <!-- hover-reveal header script -->
+  <script>
+  (function(){
+    var header=document.getElementById("adtp-header");
+    var hideTimer=null;
+    var TRIGGER_ZONE=80;
+
+    document.addEventListener("mousemove",function(e){
+      if(e.clientY<=TRIGGER_ZONE){
+        header.classList.add("is-visible");
+        clearTimeout(hideTimer);
+      }
+    });
+
+    header.addEventListener("mouseenter",function(){
+      clearTimeout(hideTimer);
+    });
+
+    header.addEventListener("mouseleave",function(){
+      hideTimer=setTimeout(function(){header.classList.remove("is-visible")},400);
+    });
+
+    document.addEventListener("mouseleave",function(){
+      hideTimer=setTimeout(function(){header.classList.remove("is-visible")},600);
+    });
+  })();
+  </script>
+
+</body>
+</html>

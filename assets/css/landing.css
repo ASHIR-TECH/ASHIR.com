@@ -11,7 +11,6 @@ body.landing-page {
     radial-gradient(circle at top, rgba(0, 0, 0, 0.05), transparent 24%),
     linear-gradient(180deg, #faf9f5 0%, var(--landing-bg) 100%);
   color: var(--landing-text);
-  scroll-behavior: smooth;
 }
 
 body.landing-page {
@@ -163,6 +162,13 @@ body.landing-page main {
   padding: 7rem 1.2rem 1.25rem;
 }
 
+.landing-hero__content--top {
+  grid-template-rows: 1fr;
+  align-content: center;
+  padding-top: clamp(4rem, 8vh, 7rem);
+  padding-bottom: 45vh;
+}
+
 .landing-scroll__arrow {
   position: absolute;
   left: 2rem;
@@ -182,16 +188,16 @@ body.landing-page main {
 .landing-eyebrow {
   margin: 0 0 0.85rem;
   color: rgba(255, 255, 255, 0.82);
-  font-size: 0.8rem;
+  font-size: 1rem;
   letter-spacing: 0.38em;
   text-transform: uppercase;
 }
 
 .landing-title {
   margin: 0;
-  max-width: 10ch;
+  max-width: 14ch;
   font-family: "Megrim", sans-serif;
-  font-size: clamp(2.4rem, 8vw, 7rem);
+  font-size: clamp(3.5rem, 10vw, 9rem);
   line-height: 0.94;
   letter-spacing: 0.06em;
   color: #ffffff;
@@ -203,18 +209,18 @@ body.landing-page main {
 
 .landing-title__sub {
   display: block;
-  margin-top: 0.45rem;
+  margin-top: 0.6rem;
   font-family: "Offside", sans-serif;
-  font-size: clamp(1rem, 2vw, 1.35rem);
+  font-size: clamp(1.3rem, 2.8vw, 1.8rem);
   letter-spacing: 0.16em;
   color: rgba(255, 255, 255, 0.82);
 }
 
 .landing-kicker {
-  margin: 1rem auto 0;
+  margin: 1.4rem auto 0;
   max-width: 42rem;
   color: rgba(255, 255, 255, 0.82);
-  font-size: 1rem;
+  font-size: 1.2rem;
   line-height: 1.7;
 }
 
@@ -271,12 +277,13 @@ body.landing-page main {
 
 .landing-marquee__track {
   display: inline-flex;
-  gap: 0.9rem;
   padding: 0.8rem 0;
   white-space: nowrap;
   flex: 0 0 auto;
   width: max-content;
   will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .landing-marquee__track span {
@@ -285,6 +292,7 @@ body.landing-page main {
   text-transform: uppercase;
   color: var(--landing-muted);
   flex: 0 0 auto;
+  margin-right: 0.9rem;
 }
 
 .landing-marquee__track span::after {
@@ -326,7 +334,7 @@ body.landing-page main {
 
 .landing-panel__label {
   margin: 0;
-  font-size: 0.76rem;
+  font-size: 1.5rem;
   letter-spacing: 0.36em;
   text-transform: uppercase;
   color: var(--landing-muted);
@@ -337,12 +345,17 @@ body.landing-page main {
   font-family: "Offside", sans-serif;
   font-size: clamp(2rem, 4vw, 3.6rem);
   letter-spacing: 0.04em;
+  font-size: 2.1rem;
 }
 
 .landing-products {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
+}
+
+.landing-products > .product-card:only-child {
+  grid-column: 2;
 }
 
 .product-card {
@@ -354,15 +367,6 @@ body.landing-page main {
   background: rgba(255, 255, 255, 0.78);
   box-shadow: var(--landing-shadow);
   transition: transform 180ms ease, box-shadow 180ms ease;
-  animation: card-rise 700ms ease both;
-}
-
-.product-card:nth-child(2) {
-  animation-delay: 90ms;
-}
-
-.product-card:nth-child(3) {
-  animation-delay: 180ms;
 }
 
 .product-card:hover {
@@ -832,14 +836,9 @@ body.landing-page main {
   background: linear-gradient(270deg, rgba(9, 11, 15, 0.95), transparent);
 }
 
-@keyframes marquee-flow {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(calc(-1 * var(--marquee-distance, 50%)));
-  }
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
 :root[data-theme="dark"] .stack-card {
@@ -953,6 +952,15 @@ body.landing-page main {
     padding-top: 6.4rem;
   }
 
+  .l-section--full {
+    min-height: auto;
+    padding: 4rem 0;
+  }
+
+  .l-brand-title {
+    font-size: clamp(3rem, 15vw, 5rem);
+  }
+
   .landing-scroll__arrow {
     left: 1rem;
     bottom: 1.1rem;
@@ -1023,6 +1031,20 @@ body.landing-page main {
     border-radius: 0.85rem;
   }
 
+  .l-section--full {
+    min-height: auto;
+    padding: 3rem 0;
+  }
+
+  .l-section--full .landing-panel {
+    padding: 1.25rem;
+  }
+
+  .l-brand-desc {
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
   .landing-section__inner {
     padding: 2rem 0 3rem;
   }
@@ -1049,10 +1071,116 @@ body.landing-page main {
   }
 }
 
+.landing-section[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 640ms ease, transform 640ms ease;
+}
+
+.landing-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .product-card,
   .stack-card::before,
-  .landing-shell::before {
+  .landing-shell::before,
+  .landing-hero__sticky {
     animation: none;
+    filter: none !important;
+  }
+
+  .landing-section[data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ── hero scroll-blur (driven by JS) ── */
+.landing-hero__sticky {
+  transition: filter 120ms linear;
+}
+
+/* ── full-viewport sections ── */
+.l-section--full {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 0;
+}
+
+.l-section--full .landing-section__inner {
+  width: min(100% - 2rem, 1180px);
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* brand intro (full-page centered) */
+.l-section__center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.2rem;
+  padding: 2rem clamp(1.5rem, 5vw, 4rem);
+}
+
+.l-brand-eyebrow {
+  margin: 0;
+  color: var(--landing-muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+}
+
+.l-brand-title {
+  margin: 0;
+  font-family: "Megrim", sans-serif;
+  font-size: clamp(4rem, 12vw, 9rem);
+  line-height: 0.92;
+  letter-spacing: 0.06em;
+}
+
+.l-brand-sub {
+  margin: 0;
+  font-family: "Offside", sans-serif;
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  letter-spacing: 0.16em;
+  color: var(--landing-muted);
+}
+
+.l-brand-desc {
+  margin: 1rem auto 0;
+  max-width: 38rem;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--landing-muted);
+}
+
+/* dark mode overrides for brand */
+:root[data-theme="dark"] .l-brand-title {
+  color: #ffffff;
+}
+
+:root[data-theme="dark"] .l-brand-desc {
+  color: rgba(247, 248, 251, 0.65);
+}
+
+/* extra breathing room for inner sections */
+.l-section--full .landing-panel {
+  padding: clamp(2rem, 4vw, 3.5rem);
+}
+
+.l-section--full .landing-panel__head {
+  margin-bottom: 2.5rem;
+}
+
+.landing-section[data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
