@@ -1091,11 +1091,11 @@ body.landing-page main {
     filter: none !important;
   }
 
-  .landing-section[data-reveal] {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
+.landing-section[data-reveal] {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
 }
 
 /* ── hero scroll-blur (driven by JS) ── */
@@ -1178,9 +1178,4 @@ body.landing-page main {
   margin-bottom: 2.5rem;
 }
 
-.landing-section[data-reveal] {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-}
+
