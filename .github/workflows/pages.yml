@@ -33,6 +33,8 @@ jobs:
           test -f pages/projects.html
           test -f pages/contact.html
           test -f pages/faq.html
+          test -f pages/adtp.html
+          test -f pages/mars.html
 
   deploy:
     name: Deploy to GitHub Pages

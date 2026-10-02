@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>M.A.R.S | ASHIR TECH</title>
+  <meta name="description" content="M.A.R.S — the mobile remote agent system. Pair your phone with the AI agent on your desktop in a single QR scan, then chat, watch your peers and orchestrate transfers from anywhere.">
+  <link rel="preload" href="../assets/css/fonts/Megrim/Megrim-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/css/fonts/Offside/Offside-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/css/fonts/Audiowide/Audiowide-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/css/fonts/Quantico/Quantico-Bold.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/css/fonts/Montserrat/Montserrat-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/nav.css">
+  <script defer src="../assets/js/theme.js"></script>
+  <script defer src="../assets/js/nav.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --mars-bg: #0b0704;
+      --mars-bg-2: #1a0f08;
+      --mars-text: #f5efe6;
+      --mars-muted: #8a7a68;
+      --mars-accent: #e8a34d;
+      --mars-accent-hot: #f6c983;
+      --mars-glass: rgba(215, 128, 30, 0.7);
+      --mars-hairline: rgba(232, 163, 77, 0.18);
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      background: var(--mars-bg);
+      color: #f7f8fb;
+      font-family: "Offside", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── video stage ───────────────────────────────────────── */
+    .mars-stage {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse 80% 70% at 50% 45%, rgba(26, 15, 8, 0.7), transparent 70%),
+        radial-gradient(ellipse 120% 120% at 50% 50%, #140c06 0%, #0b0704 60%, #050302 100%);
+    }
+
+    .mars-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.06);
+      filter: grayscale(1) brightness(0.5) contrast(1.15);
+    }
+
+    .mars-stage__shade {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(100deg,
+          rgba(11, 7, 4, 0.94) 0%,
+          rgba(11, 7, 4, 0.86) 34%,
+          rgba(11, 7, 4, 0.5) 60%,
+          rgba(11, 7, 4, 0.8) 100%),
+        radial-gradient(ellipse 90% 90% at 50% 50%, transparent 40%, rgba(5, 3, 2, 0.85) 100%);
+    }
+
+    /* slow ember drift over the footage */
+    .mars-stage__glow {
+      position: absolute;
+      width: 80vmin;
+      height: 80vmin;
+      right: -12vmin;
+      top: 50%;
+      transform: translateY(-50%);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232, 163, 77, 0.28) 0%, rgba(215, 128, 30, 0.1) 34%, transparent 66%);
+      filter: blur(60px);
+      pointer-events: none;
+      animation: mars-drift 16s ease-in-out infinite alternate;
+    }
+
+    @keyframes mars-drift {
+      from { transform: translateY(-52%) scale(1); opacity: 0.75; }
+      to   { transform: translateY(-48%) scale(1.12); opacity: 1; }
+    }
+
+    /* ── layout ───────────────────────────────────────────── */
+    .mars-page {
+      position: relative;
+      z-index: 1;
+      height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 2rem;
+      padding: 0 clamp(2rem, 5vw, 6rem);
+    }
+
+    .mars-left {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      pointer-events: auto;
+    }
+
+    .mars-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.36em;
+      text-transform: uppercase;
+      color: rgba(247, 248, 251, 0.5);
+    }
+
+    .mars-title {
+      font-family: "Megrim", sans-serif;
+      font-size: clamp(2.4rem, 5vw, 4.5rem);
+      letter-spacing: 0.06em;
+      line-height: 0.95;
+      color: #fff;
+    }
+
+    .mars-desc {
+      max-width: 28rem;
+      font-family: sans-serif;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: rgba(247, 248, 251, 0.65);
+    }
+
+    .mars-actions {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .mars-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-height: 2.6rem;
+      padding: 0 1.4rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.06);
+      color: #f7f8fb;
+      font-family: "Offside", sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+    }
+
+    .mars-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-1px);
+    }
+
+    .mars-btn--primary {
+      background: #c2410c;
+      border-color: #c2410c;
+      color: #fff;
+    }
+
+    .mars-btn--primary:hover {
+      background: #ea580c;
+      border-color: #ea580c;
+    }
+
+    .mars-version {
+      font-family: sans-serif;
+      font-size: 0.72rem;
+      color: rgba(247, 248, 251, 0.35);
+      letter-spacing: 0.04em;
+    }
+
+/* ── phone: faithful replica of the MARS Home screen ───
+       Authored at the app's own 375dp width using the real values from
+       HomeScreen.styles.ts + theme/{colors,glass,spacing,typography}.ts,
+       then scaled to fit the frame. */
+    .mars-right {
+      --mars-phone-w: clamp(206px, 22vw, 284px);
+      --mars-phone-ratio: 2.05;
+      --mars-phone-cap-w: calc(70vh / var(--mars-phone-ratio));
+      --mars-phone-final-w: min(var(--mars-phone-w), var(--mars-phone-cap-w));
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .mars-phone {
+      position: relative;
+      width: var(--mars-phone-final-w);
+      height: calc(var(--mars-phone-final-w) * var(--mars-phone-ratio));
+      padding: 7px;
+      border-radius: 2.4rem;
+      background: linear-gradient(155deg, rgba(232, 163, 77, 0.4), rgba(24, 15, 8, 0.95) 45%, rgba(232, 163, 77, 0.16));
+      box-shadow:
+        0 0 0 1px rgba(232, 163, 77, 0.28),
+        0 44px 90px rgba(0, 0, 0, 0.62),
+        inset 0 0 26px rgba(232, 163, 77, 0.14);
+    }
+
+    .mars-orbit {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 128%;
+      height: 44%;
+      transform: translate(-50%, -50%) rotate(-18deg);
+      border-radius: 50%;
+      border: 1px solid rgba(232, 163, 77, 0.26);
+      box-shadow: 0 0 34px rgba(232, 163, 77, 0.16);
+      pointer-events: none;
+      animation: mars-orbit-spin 26s linear infinite;
+    }
+
+    .mars-orbit::after {
+      content: "";
+      position: absolute;
+      top: -3px;
+      left: 50%;
+      width: 6px;
+      height: 6px;
+      margin-left: -3px;
+      border-radius: 50%;
+      background: var(--mars-accent-hot);
+      box-shadow: 0 0 12px 2px rgba(232, 163, 77, 0.7);
+    }
+
+    @keyframes mars-orbit-spin {
+      from { transform: translate(-50%, -50%) rotate(-18deg); }
+      to   { transform: translate(-50%, -50%) rotate(342deg); }
+    }
+
+    /* AppBackground blurred → orb-background-frosted.jpg */
+    .mars-screen {
+      position: relative;
+      height: 100%;
+      border-radius: 1.95rem;
+      overflow: hidden;
+      background: #0b0704 url("../assets/css/media/mars-orb-frosted.jpg") center / cover no-repeat;
+      color: var(--mars-text);
+      font-family: "Montserrat", system-ui, -apple-system, sans-serif;
+      --s: 0.7;
+      --y: 0px;
+    }
+
+    /* the whole Home screen is scaled to fit, so it never scrolls */
+    .mars-screen__layer {
+      position: absolute;
+      top: var(--y);
+      left: 50%;
+      width: 375px;
+      margin-left: calc(-187.5px * var(--s));
+      transform-origin: top left;
+      transform: scale(var(--s));
+    }
+
+    /* notch cut out of the bezel (no OS status bar drawn) */
+    .mars-notch {
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      width: 116px;
+      height: 26px;
+      margin-left: -58px;
+      border-radius: 999px;
+      background: #060402;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    /* HomeScreen content: paddingTop xxl*2, paddingH lg, paddingBottom tabBar+24, gap lg */
+    .m-content {
+      width: 375px;
+      padding: 38px 24px 116px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      box-sizing: border-box;
+    }
+
+    .m-header { position: relative; }
+
+    .m-title {
+      font-family: "Audiowide", cursive;
+      font-size: 15px;
+      letter-spacing: 1.5px;
+      color: #f5efe6;
+    }
+
+    .m-subtitle {
+      font-family: "Audiowide", cursive;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      color: #8a7a68;
+      margin-top: 1px;
+    }
+
+    .m-avatar {
+      position: absolute;
+      right: 0;
+      top: -2.5px;
+      width: 36px;
+      height: 36px;
+      border-radius: 18px;
+      background-color: #e8a34d;
+      background-image: url("../assets/css/media/profile.jpg");
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 0 0 1px rgba(232, 163, 77, 0.38);
+      overflow: hidden;
+    }
+
+    .m-search {
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      padding: 8px 16px;
+      font-family: "Montserrat", sans-serif;
+      font-size: 14px;
+      color: #8a7a68;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .m-section { display: flex; flex-direction: column; gap: 8px; }
+
+    .m-sechead {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .m-sechead__title {
+      font-family: "Quantico", monospace;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #f5efe6;
+    }
+
+    .m-sechead__badge {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 2px 8px;
+      font-family: "Montserrat", sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      color: #f5efe6;
+    }
+
+    .m-dgrid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    /* DeviceCard */
+    .m-dcard {
+      background: rgba(37, 17, 1, 0.62);
+      border: 0.5px solid rgba(215, 128, 30, 0.7);
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+
+    .m-dcard__top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .m-dcard__id {
+      font-family: "Montserrat", sans-serif;
+      font-size: 11px;
+      color: #e9dccb;
+    }
+
+    .m-dcard__name {
+      font-family: "Offside", sans-serif;
+      color: #fff;
+      margin-top: 4px;
+      line-height: 1.25;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .m-dcard__os {
+      font-family: "Montserrat", sans-serif;
+      font-size: 12px;
+      color: #cd7b01;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .m-dcard__bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+
+    .m-dcard__label,
+    .m-dcard__seen {
+      font-family: "Montserrat", sans-serif;
+      font-size: 11px;
+    }
+
+    .m-dcard__label { color: #e9dccb; }
+    .m-dcard__seen { color: #bdbdbc; }
+
+    /* StatusPill */
+    .m-pill { --c: #8a7a68; display: flex; align-items: center; gap: 4px; flex: none; }
+    .m-pill--online { --c: rgba(85, 255, 0, 0.79); }
+    .m-pill--idle { --c: #fedc00; }
+    .m-pill--offline { --c: rgba(204, 0, 235, 0.85); }
+
+    .m-pill__dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--c);
+      flex: none;
+    }
+
+    .m-pill__label {
+      font-family: "Montserrat", sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: var(--c);
+    }
+
+    /* chatSection: 220px list + custom scrollbar */
+    .m-chatwrap { display: flex; gap: 10px; height: 220px; }
+
+    .m-chatlist {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      overflow: hidden;
+    }
+
+    /* ChatPreviewRow */
+    .m-row {
+      height: 68px;
+      flex: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 16px;
+      background: rgba(37, 17, 1, 0.62);
+      border: 0.5px solid rgba(215, 128, 30, 0.7);
+      border-radius: 10px;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+
+    .m-row__avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 18px;
+      flex: none;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Montserrat", sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: #f5efe6;
+    }
+
+    .m-row__body { flex: 1; min-width: 0; }
+    .m-row__head { display: flex; justify-content: space-between; gap: 6px; }
+    .m-row__name {
+      font-family: "Montserrat", sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #f5efe6;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .m-row__time {
+      font-family: "Montserrat", sans-serif;
+      font-size: 11px;
+      color: #8a7a68;
+      flex: none;
+    }
+    .m-row__msg {
+      font-family: "Montserrat", sans-serif;
+      font-size: 12px;
+      color: #8a7a68;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .m-row__unread {
+      flex: none;
+      min-width: 20px;
+      height: 20px;
+      border-radius: 10px;
+      padding: 0 5px;
+      background: #e8a34d;
+      color: #0b0704;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Montserrat", sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .m-track {
+      width: 3px;
+      flex: none;
+      border-radius: 2px;
+      background: rgba(255, 255, 255, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .m-thumb {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 3px;
+      border-radius: 2px;
+      background: rgba(232, 163, 77, 0.2);
+    }
+
+    /* AnimatedTabBar: absolute, height 92 (iOS), floats over the orb */
+    .m-tabwrap {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: calc(92px * var(--s));
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .m-tabbar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 375px;
+      height: 92px;
+      padding: 8px 0 32px;
+      display: flex;
+      transform-origin: bottom left;
+      transform: scale(var(--s));
+    }
+
+    .m-tab {
+      flex: 1;
+      flex-basis: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      transform: translateY(-5px);
+    }
+
+    .m-tab svg { width: 26px; height: 26px; display: block; }
+    .m-tab span {
+      font-family: "Offside", sans-serif;
+      font-size: 15px;
+      align-self: stretch;
+      text-align: center;
+    }
+    .m-tab--on span { color: #ffffff; }
+    .m-tab--off span { color: rgba(255, 255, 255, 0.85); }
+
+    /* caption under the handset */
+    .mars-phone__peek {
+      font-family: sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(247, 248, 251, 0.4);
+      text-align: center;
+      margin-top: 0.3rem;
+    }
+
+    /* ── feature overlay ──────────────────────────────────── */
+    .mars-features {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(12px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 300ms ease;
+    }
+
+    .mars-features.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .mars-features__grid {
+      width: min(100%, 62rem);
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.8rem;
+      transform: translateY(14px) scale(0.985);
+      transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .mars-features.is-open .mars-features__grid {
+      transform: none;
+    }
+
+    .mars-feature {
+      padding: 1.15rem 1.2rem;
+      border-radius: 1rem;
+      border: 1px solid var(--mars-hairline);
+      background: linear-gradient(160deg, rgba(232, 163, 77, 0.08), rgba(245, 239, 230, 0.02));
+    }
+
+    .mars-feature__index {
+      font-family: "Quantico", monospace;
+      font-weight: 700;
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      color: var(--mars-accent);
+    }
+
+    .mars-feature h3 {
+      margin: 0.5rem 0 0.4rem;
+      font-family: "Audiowide", cursive;
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+      color: var(--mars-text);
+    }
+
+    .mars-feature p {
+      font-size: 0.82rem;
+      line-height: 1.7;
+      color: rgba(245, 239, 230, 0.58);
+    }
+
+    .mars-features__close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 180ms ease;
+    }
+
+    .mars-features__close:hover {
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .mars-features__close:hover { background: rgba(245, 239, 230, 0.18); }
+
+    /* ── pull-down nav (matches adtp header) ──────────────── */
+    .mars-header {
+      position: fixed;
+      inset: 0.6rem 0 auto;
+      z-index: 30;
+      pointer-events: none;
+      transform: translateY(calc(-100% - 1rem));
+      transition: transform 320ms cubic-bezier(0.4, 0, 0.2, 1), opacity 320ms ease;
+      opacity: 0;
+    }
+
+    .mars-header.is-visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .mars-header__bar {
+      position: relative;
+      width: min(100% - 2rem, 1180px);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.7rem;
+      padding: 0.38rem 0.5rem;
+      border: 1px solid rgba(232, 163, 77, 0.14);
+      border-radius: 1rem;
+      background: linear-gradient(180deg, rgba(21, 13, 7, 0.78), rgba(11, 7, 4, 0.58));
+      backdrop-filter: blur(24px) saturate(1.4);
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.34);
+      pointer-events: auto;
+    }
+
+    .mars-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: var(--mars-text);
+      text-decoration: none;
+    }
+
+    .mars-brand__mark {
+      width: 0.9rem;
+      height: 0.9rem;
+      flex: none;
+      border-radius: 50%;
+      border: 2px solid var(--mars-accent);
+      position: relative;
+      display: inline-block;
+    }
+
+    .mars-brand__mark::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: -0.28rem;
+      width: 1.42rem;
+      height: 0.34rem;
+      margin-top: -0.17rem;
+      border: 1px solid rgba(232, 163, 77, 0.7);
+      border-radius: 50%;
+      transform: rotate(-18deg);
+    }
+
+    .mars-brand__name {
+      font-family: "Audiowide", cursive;
+      font-size: 0.92rem;
+      letter-spacing: 0.08em;
+    }
+
+    .mars-header__actions {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .mars-header__actions .theme-toggle {
+      width: 10rem;
+      height: 2.9rem;
+      border-color: rgba(232, 163, 77, 0.2);
+      background: rgba(232, 163, 77, 0.08);
+      color: var(--mars-text);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24);
+    }
+
+    .mars-header__actions .nav-toggle {
+      width: 9.25rem;
+      height: 2.9rem;
+      border-color: rgba(232, 163, 77, 0.2);
+      background: rgba(232, 163, 77, 0.08);
+      color: var(--mars-text);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24);
+    }
+
+    .mars-header__bar .site-nav,
+    :root[data-theme="dark"] .mars-header__bar .site-nav {
+      right: 1rem;
+      top: calc(100% + 0.75rem);
+      border-color: rgba(232, 163, 77, 0.22);
+      background: rgba(15, 10, 6, 0.97);
+    }
+
+    .mars-header__bar .site-nav a,
+    :root[data-theme="dark"] .mars-header__bar .site-nav a { color: var(--mars-text); }
+
+    /* ── responsive ───────────────────────────────────────── */
+    @media (max-width: 1080px) {
+      .mars-features__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 860px) {
+      /* let the document scroll normally instead of nesting a scroller on body */
+      html, body { height: auto; min-height: 100%; overflow: visible; }
+
+      .mars-page {
+        height: auto;
+        min-height: 100vh;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+        padding: 5rem 1.5rem 2rem;
+      }
+
+      .mars-right {
+        padding-bottom: 2rem;
+        --mars-phone-w: 224px;
+      }
+
+      .mars-stage__shade {
+        background:
+          linear-gradient(180deg, rgba(11, 7, 4, 0.92) 0%, rgba(11, 7, 4, 0.7) 55%, rgba(5, 3, 2, 0.95) 100%);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .mars-features__grid { grid-template-columns: 1fr; }
+      .mars-header__actions .theme-toggle { width: 8rem; }
+      .mars-header__actions .nav-toggle { width: 7.5rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .mars-stage__glow,
+      .mars-phone,
+      .mars-orbit,
+      .mars-meter__fill,
+      .mars-transfer__pill { animation: none; }
+
+      .mars-video { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- hover-reveal header (matches adtp header) -->
+  <header class="mars-header" id="mars-header">
+    <div class="mars-header__bar">
+      <a class="mars-brand" href="../index.html" aria-label="ASHIR TECH home">
+        <span class="mars-brand__mark" aria-hidden="true"></span>
+        <span class="mars-brand__name">ASHIR TECH</span>
+      </a>
+
+      <div class="mars-header__actions">
+        <div class="theme-switcher">
+          <button class="theme-toggle" type="button" aria-label="Toggle theme">
+            <span class="theme-toggle__label">Dark mode</span>
+          </button>
+        </div>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open navigation menu">
+          <img class="nav-toggle__icon" src="../assets/css/images/whitemode%20drop-down%20button.png" alt="" aria-hidden="true">
+        </button>
+      </div>
+
+      <nav class="site-nav" id="site-nav" aria-label="Primary">
+        <a href="../index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="projects.html">Projects</a>
+        <a href="contact.html">Contact</a>
+        <a href="faq.html">FAQ</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- background video -->
+  <div class="mars-stage" aria-hidden="true">
+    <video class="mars-video" autoplay muted loop playsinline preload="metadata"
+           poster="../assets/css/media/M%20A%20R%20S.png">
+      <source src="../assets/css/media/M%20A%20R%20S.mp4" type="video/mp4">
+    </video>
+    <div class="mars-stage__shade"></div>
+    <div class="mars-stage__glow"></div>
+  </div>
+
+  <!-- page content -->
+  <div class="mars-page">
+
+    <div class="mars-left">
+      <p class="mars-eyebrow">Mobile Remote Agent System</p>
+      <h1 class="mars-title">M.A.R.S</h1>
+      <p class="mars-desc">MARS turns your phone into a remote co-pilot for the AI agent running on your desktop. Scan one QR code and the pairing is done &mdash; then chat with the agent in plain language, watch CPU and RAM across every connected peer, and orchestrate file transfers across your fleet from the palm of your hand. The phone carries no heavy endpoint of its own: it stays a thin, secure remote, so the intelligence never leaves the machines you own.</p>
+
+      <div class="mars-actions">
+        <a class="mars-btn mars-btn--primary" href="#">&#11015; Download</a>
+        <button class="mars-btn" type="button" id="mars-open-features">See features</button>
+      </div>
+
+      <span class="mars-version">Phase 14 &middot; Expo SDK 54 &middot; React Native 0.81 &middot; iOS / Android</span>
+    </div>
+
+<div class="mars-right">
+      <div class="mars-phone">
+        <div class="mars-orbit"></div>
+
+        <div class="mars-screen" id="mars-screen">
+
+          <!-- ══ HomeScreen ══ -->
+          <div class="mars-screen__layer" id="mars-app-layer">
+            <div class="m-content" id="mars-app">
+
+              <div class="m-header">
+                <div class="m-title">COMMAND CENTER</div>
+                <div class="m-subtitle">Command and Control Center</div>
+                <div class="m-avatar"></div>
+              </div>
+
+              <div class="m-search">Search for active peers and connected devices</div>
+
+              <div class="m-section">
+                <div class="m-sechead">
+                  <span class="m-sechead__title">Connected Devices</span>
+                  <span class="m-sechead__badge">7/8 ON</span>
+                </div>
+
+                <div class="m-dgrid">
+                  <div class="m-dcard">
+                    <div class="m-dcard__top">
+                      <span class="m-dcard__id">DEV-091</span>
+                      <span class="m-pill m-pill--online"><i class="m-pill__dot"></i><b class="m-pill__label">ONLINE</b></span>
+                    </div>
+                    <div class="m-dcard__name" style="font-size:18.5px">CONTRACTOR</div>
+                    <div class="m-dcard__os">Kali Linux</div>
+                    <div class="m-dcard__bottom">
+                      <span class="m-dcard__label">Active</span>
+                      <span class="m-dcard__seen">Just Now</span>
+                    </div>
+                  </div>
+
+                  <div class="m-dcard">
+                    <div class="m-dcard__top">
+                      <span class="m-dcard__id">DEV-022</span>
+                      <span class="m-pill m-pill--idle"><i class="m-pill__dot"></i><b class="m-pill__label">IDLE</b></span>
+                    </div>
+                    <div class="m-dcard__name" style="font-size:17.75px">WORK-LAPTOP</div>
+                    <div class="m-dcard__os">Windows 11 Pro</div>
+                    <div class="m-dcard__bottom">
+                      <span class="m-dcard__label">Active</span>
+                      <span class="m-dcard__seen">14m ago</span>
+                    </div>
+                  </div>
+
+                  <div class="m-dcard">
+                    <div class="m-dcard__top">
+                      <span class="m-dcard__id">DEV-034</span>
+                      <span class="m-pill m-pill--online"><i class="m-pill__dot"></i><b class="m-pill__label">ONLINE</b></span>
+                    </div>
+                    <div class="m-dcard__name" style="font-size:20.75px">HOMELAB</div>
+                    <div class="m-dcard__os">Ubuntu Server</div>
+                    <div class="m-dcard__bottom">
+                      <span class="m-dcard__label">Active</span>
+                      <span class="m-dcard__seen">2m ago</span>
+                    </div>
+                  </div>
+
+                  <div class="m-dcard">
+                    <div class="m-dcard__top">
+                      <span class="m-dcard__id">DEV-041</span>
+                      <span class="m-pill m-pill--online"><i class="m-pill__dot"></i><b class="m-pill__label">ONLINE</b></span>
+                    </div>
+                    <div class="m-dcard__name" style="font-size:17px">MARS-NODE-01</div>
+                    <div class="m-dcard__os">Debian 12</div>
+                    <div class="m-dcard__bottom">
+                      <span class="m-dcard__label">Active</span>
+                      <span class="m-dcard__seen">1m ago</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="m-section">
+                <div class="m-sechead">
+                  <span class="m-sechead__title">Recent Chats</span>
+                </div>
+
+                <div class="m-chatwrap">
+                  <div class="m-chatlist">
+                    <div class="m-row">
+                      <div class="m-row__avatar">NC</div>
+                      <div class="m-row__body">
+                        <div class="m-row__head">
+                          <span class="m-row__name">Nova Core</span>
+                          <span class="m-row__time">14:02</span>
+                        </div>
+                        <div class="m-row__msg">Alert: Node CPU spike detected&hellip;</div>
+                      </div>
+                      <div class="m-row__unread">1</div>
+                    </div>
+
+                    <div class="m-row">
+                      <div class="m-row__avatar">HX</div>
+                      <div class="m-row__body">
+                        <div class="m-row__head">
+                          <span class="m-row__name">Helix (Lead Dev)</span>
+                          <span class="m-row__time">Yesterday</span>
+                        </div>
+                        <div class="m-row__msg">The local sync command compl&hellip;</div>
+                      </div>
+                    </div>
+
+                    <div class="m-row">
+                      <div class="m-row__avatar">MR</div>
+                      <div class="m-row__body">
+                        <div class="m-row__head">
+                          <span class="m-row__name">Mira (Ops)</span>
+                          <span class="m-row__time">Yesterday</span>
+                        </div>
+                        <div class="m-row__msg">Backup rotation finished on all nodes.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="m-track"><i class="m-thumb" style="height:74px"></i></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- AnimatedTabBar -->
+          <div class="m-tabwrap">
+            <div class="m-tabbar">
+              <div class="m-tab m-tab--on">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M3 9.5L12 3l9 6.5V20a1.5 1.5 0 0 1-1.5 1.5h-5V14h-5v7.5h-5A1.5 1.5 0 0 1 3 20V9.5z"
+                        stroke="#e8a34d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Home</span>
+              </div>
+
+              <div class="m-tab m-tab--off">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"
+                        stroke="rgba(232,163,77,0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Chat</span>
+              </div>
+
+              <div class="m-tab m-tab--off">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M2 4h20v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4z"
+                        stroke="rgba(232,163,77,0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M9 21h6" stroke="rgba(232,163,77,0.8)" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M12 18v3" stroke="rgba(232,163,77,0.8)" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <span>Devices</span>
+              </div>
+
+              <div class="m-tab m-tab--off">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+                        stroke="rgba(232,163,77,0.8)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
+                        stroke="rgba(232,163,77,0.8)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Settings</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mars-notch"></div>
+        </div>
+      </div>
+
+      <p class="mars-phone__peek">M.A.R.S &middot; Home Screen</p>
+    </div>
+  </div>
+
+  <!-- feature overlay -->
+  <div class="mars-features" id="mars-features" role="dialog" aria-modal="true" aria-labelledby="mars-features-title">
+    <button class="mars-features__close" id="mars-features-close" aria-label="Close features">&times;</button>
+
+    <div class="mars-features__grid" id="mars-features-title">
+      <article class="mars-feature">
+        <p class="mars-feature__index">01</p>
+        <h3>One-Scan Pairing</h3>
+        <p>Scan the desktop&rsquo;s pairing QR and the app validates it, stores it in SecureStore, and auto-configures the Desktop Agent. No manual URL entry, ever.</p>
+      </article>
+      <article class="mars-feature">
+        <p class="mars-feature__index">02</p>
+        <h3>Agent Chat</h3>
+        <p>Ask the desktop agent anything in plain language. Tool calls render as step cards and file operations become transfer tiles &mdash; identically, whichever model answered.</p>
+      </article>
+      <article class="mars-feature">
+        <p class="mars-feature__index">03</p>
+        <h3>Device Hub</h3>
+        <p>A grid of every paired node with OS, status, live CPU and RAM bars, last check, and one-tap rename or remove.</p>
+      </article>
+      <article class="mars-feature">
+        <p class="mars-feature__index">04</p>
+        <h3>Transfers</h3>
+        <p>Watch incoming and outgoing jobs move from queued to negotiating to transferring, with byte counts, peer IDs, and status tone on every row.</p>
+      </article>
+      <article class="mars-feature">
+        <p class="mars-feature__index">05</p>
+        <h3>Live Relay</h3>
+        <p>A lightweight WebSocket with exponential-backoff reconnect keeps device state and chat replies flowing to the phone in real time.</p>
+      </article>
+      <article class="mars-feature">
+        <p class="mars-feature__index">06</p>
+        <h3>Secure by Design</h3>
+        <p>Sessions, pairing payloads, and agent tokens live behind hardware-backed encryption. The phone holds no P2P keys &mdash; the desktop enforces its own policy store.</p>
+      </article>
+    </div>
+  </div>
+
+  <!-- feature overlay script -->
+  <script>
+  (function(){
+    var panel=document.getElementById("mars-features");
+    var open=document.getElementById("mars-open-features");
+    var close=document.getElementById("mars-features-close");
+    if(!panel||!open||!close)return;
+
+    function setOpen(state){
+      panel.classList.toggle("is-open",state);
+      if(state){close.focus()}else{open.focus()}
+    }
+
+    open.addEventListener("click",function(){setOpen(true)});
+    close.addEventListener("click",function(){setOpen(false)});
+    panel.addEventListener("click",function(e){if(e.target===panel)setOpen(false)});
+    document.addEventListener("keydown",function(e){if(e.key==="Escape")setOpen(false)});
+  })();
+  </script>
+
+  <!-- phone: scale the Home screen to fit the frame (no scrolling) -->
+  <script>
+  (function(){
+    var screen=document.getElementById("mars-screen");
+    var app=document.getElementById("mars-app");
+    var layer=document.getElementById("mars-app-layer");
+    if(!screen||!app||!layer)return;
+
+    var BASE_W=375;
+
+    function fit(){
+      var w=screen.clientWidth;
+      var h=screen.clientHeight;
+      if(!w||!h)return;
+
+      // offsetHeight ignores transforms, so this is the unscaled canvas height
+      var need=layer.offsetHeight||app.offsetHeight||843;
+
+      // fit both axes so the whole Home screen is always visible
+      var s=Math.min(1,w/BASE_W,h/need);
+      screen.style.setProperty("--s",String(s));
+      screen.style.setProperty("--y",Math.max(0,(h-need*s)/2)+"px");
+    }
+
+    fit();
+    if(window.ResizeObserver){new ResizeObserver(fit).observe(screen)}
+    window.addEventListener("resize",fit);
+    if(document.fonts&&document.fonts.ready){document.fonts.ready.then(fit)}
+  })();
+  </script>
+
+  <!-- hover-reveal header script -->
+  <script>
+  (function(){
+    var header=document.getElementById("mars-header");
+    var hideTimer=null;
+    var TRIGGER_ZONE=80;
+
+    document.addEventListener("mousemove",function(e){
+      if(e.clientY<=TRIGGER_ZONE){
+        header.classList.add("is-visible");
+        clearTimeout(hideTimer);
+      }
+    });
+
+    header.addEventListener("mouseenter",function(){clearTimeout(hideTimer)});
+    header.addEventListener("mouseleave",function(){
+      hideTimer=setTimeout(function(){header.classList.remove("is-visible")},400);
+    });
+    document.addEventListener("mouseleave",function(){
+      hideTimer=setTimeout(function(){header.classList.remove("is-visible")},600);
+    });
+  })();
+  </script>
+
+</body>
+</html>

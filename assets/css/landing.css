@@ -358,6 +358,23 @@ body.landing-page main {
   grid-column: 2;
 }
 
+.landing-products--duo {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 780px;
+  margin-inline: auto;
+}
+
+.product-card--mars .product-card__media {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.62), rgba(26, 15, 8, 0.06)),
+    radial-gradient(circle at 30% 30%, rgba(26, 15, 8, 0.06), transparent 42%);
+}
+
+.product-card--mars .product-card__title {
+  font-family: "Audiowide", cursive;
+  letter-spacing: 0.07em;
+}
+
 .product-card {
   display: grid;
   gap: 1rem;
@@ -546,7 +563,7 @@ body.landing-page main {
 .landing-footer {
   position: relative;
   z-index: 1;
-  padding: 1rem 0 2rem;
+  padding: clamp(3rem, 7vw, 5.5rem) 0 2rem;
 }
 
 .landing-footer__inner {
