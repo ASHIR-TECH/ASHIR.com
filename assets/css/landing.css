@@ -1,15 +1,13 @@
 body.landing-page {
-  --landing-bg: #f4f3ef;
-  --landing-panel: rgba(255, 255, 255, 0.74);
-  --landing-text: #1f2330;
-  --landing-muted: #61677a;
-  --landing-border: rgba(31, 35, 48, 0.12);
-  --landing-shadow: 0 18px 40px rgba(22, 27, 38, 0.08);
+  --landing-bg: #0a0a0a;
+  --landing-panel: rgba(255, 255, 255, 0.04);
+  --landing-text: #ffffff;
+  --landing-muted: rgba(255, 255, 255, 0.5);
+  --landing-border: rgba(255, 255, 255, 0.08);
+  --landing-shadow: 0 22px 52px rgba(0, 0, 0, 0.4);
   --hero-shift: 0px;
-  --hero-glow: 0.28;
-  background:
-    radial-gradient(circle at top, rgba(0, 0, 0, 0.05), transparent 24%),
-    linear-gradient(180deg, #faf9f5 0%, var(--landing-bg) 100%);
+  --hero-glow: 0;
+  background: #000000;
   color: var(--landing-text);
 }
 
@@ -31,12 +29,8 @@ body.landing-page main {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background:
-    radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.32), transparent 20%),
-    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.18), transparent 18%),
-    radial-gradient(circle at center, rgba(0, 0, 0, var(--hero-glow)), transparent 48%);
-  mix-blend-mode: screen;
-  opacity: 0.6;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.02), transparent 60%);
+  opacity: 0.4;
 }
 
 .landing-header {
@@ -55,11 +49,10 @@ body.landing-page main {
   justify-content: space-between;
   gap: 0.7rem;
   padding: 0.38rem 0.5rem;
-  border: 1px solid rgba(31, 35, 48, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 1rem;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.50), rgba(255, 255, 255, 0.26));
-  backdrop-filter: blur(24px) saturate(1.5);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+  backdrop-filter: blur(20px) saturate(1.1);
   box-shadow: var(--landing-shadow);
   pointer-events: auto;
 }
@@ -379,25 +372,22 @@ body.landing-page main {
   display: grid;
   gap: 1rem;
   padding: 1rem;
-  border-radius: 1.25rem;
+  border-radius: 1rem;
   border: 1px solid var(--landing-border);
-  background: rgba(255, 255, 255, 0.78);
-  box-shadow: var(--landing-shadow);
-  transition: transform 180ms ease, box-shadow 180ms ease;
+  background: var(--landing-panel);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.02);
+  transition: border-color 200ms ease;
 }
 
 .product-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 22px 48px rgba(22, 27, 38, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .product-card__media {
-  aspect-ratio: 4 / 3;
-  border-radius: 1rem;
+  aspect-ratio: 16 / 10;
+  border-radius: 0.75rem;
   overflow: hidden;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.62), rgba(31, 35, 48, 0.06)),
-    radial-gradient(circle at 30% 30%, rgba(31, 35, 48, 0.06), transparent 42%);
+  background: #050505;
 }
 
 .product-card__media img {
@@ -416,22 +406,23 @@ body.landing-page main {
   margin: 0;
   color: var(--landing-muted);
   font-size: 0.76rem;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
 .product-card__title {
   margin: 0;
-  font-family: "Offside", sans-serif;
-  font-size: 1.25rem;
-  letter-spacing: 0.04em;
+  font-family: "Audiowide", sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.01em;
+  color: #ffffff;
 }
 
 .product-card__copy {
   margin: 0;
   color: var(--landing-muted);
-  font-size: 0.92rem;
-  line-height: 1.65;
+  font-size: 0.95rem;
+  line-height: 1.7;
 }
 
 .product-card__meta {
@@ -447,8 +438,8 @@ body.landing-page main {
   padding: 0 0.65rem;
   border-radius: 999px;
   border: 1px solid var(--landing-border);
-  background: rgba(255, 255, 255, 0.9);
-  color: var(--landing-text);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--landing-muted);
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
