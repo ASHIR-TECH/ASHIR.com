@@ -715,6 +715,11 @@ body.landing-page main {
   transform: translateX(-0.25rem);
 }
 
+:root[data-theme="light"] .landing-pager__item.is-active {
+  background: #e5e5e5;
+  color: #000000;
+}
+
 .landing-stack {
   display: grid;
   gap: 0.9rem;
@@ -801,6 +806,12 @@ body.landing-page main {
   background: #15181f;
   color: #ffffff;
   border-color: rgba(255, 255, 255, 0.08);
+}
+
+:root[data-theme="light"] .landing-cta--dark {
+  background: #000000;
+  color: #ffffff;
+  border-color: rgba(0, 0, 0, 0.08);
 }
 
 :root[data-theme="dark"] body.landing-page {
