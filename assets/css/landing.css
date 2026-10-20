@@ -862,6 +862,30 @@ body.landing-page main {
     linear-gradient(180deg, rgba(6, 8, 11, 0.3) 0%, rgba(6, 8, 11, 0.9) 100%);
 }
 
+/* Light mode: ensure all text is dark on light backgrounds */
+:root[data-theme="light"] .landing-eyebrow,
+:root[data-theme="light"] .landing-title,
+:root[data-theme="light"] .landing-title__sub,
+:root[data-theme="light"] .landing-kicker,
+:root[data-theme="light"] .landing-scroll,
+:root[data-theme="light"] .landing-scroll__arrow,
+:root[data-theme="light"] .product-card__title,
+:root[data-theme="light"] .product-card__copy,
+:root[data-theme="light"] .product-card__eyebrow,
+:root[data-theme="light"] .meta-pill,
+:root[data-theme="light"] .landing-panel__label,
+:root[data-theme="light"] .landing-panel__title,
+:root[data-theme="light"] .landing-panel__desc {
+  color: var(--landing-text);
+}
+
+:root[data-theme="light"] .product-card__copy,
+:root[data-theme="light"] .meta-pill,
+:root[data-theme="light"] .landing-panel__desc,
+:root[data-theme="light"] .product-card__eyebrow {
+  color: var(--landing-muted);
+}
+
 :root[data-theme="dark"] .landing-eyebrow,
 :root[data-theme="dark"] .landing-title,
 :root[data-theme="dark"] .landing-title__sub,
