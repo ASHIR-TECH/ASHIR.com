@@ -1,13 +1,13 @@
 body.landing-page {
-  --landing-bg: #0a0a0a;
-  --landing-panel: rgba(255, 255, 255, 0.04);
-  --landing-text: #ffffff;
-  --landing-muted: rgba(255, 255, 255, 0.5);
-  --landing-border: rgba(255, 255, 255, 0.08);
-  --landing-shadow: 0 22px 52px rgba(0, 0, 0, 0.4);
+  --landing-bg: #fafaf9;
+  --landing-panel: rgba(0, 0, 0, 0.03);
+  --landing-text: #0f0f0f;
+  --landing-muted: rgba(0, 0, 0, 0.55);
+  --landing-border: rgba(0, 0, 0, 0.08);
+  --landing-shadow: 0 22px 52px rgba(0, 0, 0, 0.06);
   --hero-shift: 0px;
   --hero-glow: 0;
-  background: #000000;
+  background: #ffffff;
   color: var(--landing-text);
 }
 
@@ -117,7 +117,7 @@ body.landing-page main {
   position: relative;
   min-height: 100vh;
   overflow: clip;
-  background: #0c1017;
+  background: #f5f5f2;
 }
 
 .landing-hero__sticky {
@@ -166,7 +166,7 @@ body.landing-page main {
   position: absolute;
   left: 2rem;
   bottom: 1.8rem;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--landing-muted);
   font-size: 1.8rem;
   line-height: 1;
 }
@@ -180,7 +180,7 @@ body.landing-page main {
 
 .landing-eyebrow {
   margin: 0 0 0.85rem;
-  color: rgba(255, 255, 255, 0.82);
+  color: var(--landing-muted);
   font-size: 1rem;
   letter-spacing: 0.38em;
   text-transform: uppercase;
@@ -193,11 +193,11 @@ body.landing-page main {
   font-size: clamp(3.5rem, 10vw, 9rem);
   line-height: 0.94;
   letter-spacing: 0.06em;
-  color: #ffffff;
+  color: var(--landing-text);
   text-wrap: balance;
   overflow-wrap: break-word;
   word-break: break-word;
-  text-shadow: 0 12px 42px rgba(0, 0, 0, 0.34);
+  text-shadow: 0 12px 42px rgba(0, 0, 0, 0.1);
 }
 
 .landing-title__sub {
@@ -206,13 +206,13 @@ body.landing-page main {
   font-family: "Offside", sans-serif;
   font-size: clamp(1.3rem, 2.8vw, 1.8rem);
   letter-spacing: 0.16em;
-  color: rgba(255, 255, 255, 0.82);
+  color: var(--landing-muted);
 }
 
 .landing-kicker {
   margin: 1.4rem auto 0;
   max-width: 42rem;
-  color: rgba(255, 255, 255, 0.82);
+  color: var(--landing-muted);
   font-size: 1.2rem;
   line-height: 1.7;
 }
@@ -223,7 +223,7 @@ body.landing-page main {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--landing-muted);
   font-size: 0.8rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -387,7 +387,7 @@ body.landing-page main {
   aspect-ratio: 16 / 10;
   border-radius: 0.75rem;
   overflow: hidden;
-  background: #050505;
+  background: #f2f2f0;
 }
 
 .product-card__media img {
@@ -415,7 +415,7 @@ body.landing-page main {
   font-family: "Audiowide", sans-serif;
   font-size: 1.4rem;
   letter-spacing: 0.01em;
-  color: #ffffff;
+  color: var(--landing-text);
 }
 
 .product-card__copy {
@@ -818,6 +818,29 @@ body.landing-page main {
     radial-gradient(circle at 30% 30%, rgba(125, 211, 252, 0.12), transparent 42%);
   color: rgba(255, 255, 255, 0.6);
   border-color: rgba(255, 255, 255, 0.12);
+}
+
+:root[data-theme="dark"] .landing-hero {
+  background: #000000;
+}
+
+:root[data-theme="dark"] .landing-hero__shade {
+  background:
+    radial-gradient(circle at center, rgba(0, 0, 0, 0.35), transparent 42%),
+    linear-gradient(180deg, rgba(6, 8, 11, 0.3) 0%, rgba(6, 8, 11, 0.9) 100%);
+}
+
+:root[data-theme="dark"] .landing-eyebrow,
+:root[data-theme="dark"] .landing-title,
+:root[data-theme="dark"] .landing-title__sub,
+:root[data-theme="dark"] .landing-kicker,
+:root[data-theme="dark"] .landing-scroll,
+:root[data-theme="dark"] .landing-scroll__arrow {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+:root[data-theme="dark"] .landing-title {
+  text-shadow: 0 12px 42px rgba(0, 0, 0, 0.6);
 }
 
 :root[data-theme="dark"] .landing-footer__bottom {
