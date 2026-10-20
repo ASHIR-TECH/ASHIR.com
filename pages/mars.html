@@ -22,6 +22,8 @@
       --mars-bg-2: #1a0f08;
       --mars-text: #f5efe6;
       --mars-muted: #8a7a68;
+      --mars-muted-soft: rgba(247, 248, 251, 0.5);
+      --mars-muted-faint: rgba(247, 248, 251, 0.35);
       --mars-accent: #e8a34d;
       --mars-accent-hot: #f6c983;
       --mars-glass: rgba(215, 128, 30, 0.7);
@@ -32,9 +34,22 @@
       height: 100%;
       overflow: hidden;
       background: var(--mars-bg);
-      color: #f7f8fb;
+      color: var(--mars-text);
       font-family: "Offside", sans-serif;
       -webkit-font-smoothing: antialiased;
+    }
+
+    [data-theme="light"] {
+      --mars-bg: #ffffff;
+      --mars-bg-2: #f5f5f2;
+      --mars-text: #0f0f0f;
+      --mars-muted: #666666;
+      --mars-muted-soft: rgba(0, 0, 0, 0.5);
+      --mars-muted-faint: rgba(0, 0, 0, 0.35);
+      --mars-accent: #c9a84c;
+      --mars-accent-hot: #e8a34d;
+      --mars-glass: rgba(215, 128, 30, 0.3);
+      --mars-hairline: rgba(232, 163, 77, 0.1);
     }
 
     /* ── video stage ───────────────────────────────────────── */
@@ -113,7 +128,7 @@
       font-size: 0.72rem;
       letter-spacing: 0.36em;
       text-transform: uppercase;
-      color: rgba(247, 248, 251, 0.5);
+      color: var(--mars-muted-soft);
     }
 
     .mars-title {
@@ -121,7 +136,7 @@
       font-size: clamp(2.4rem, 5vw, 4.5rem);
       letter-spacing: 0.06em;
       line-height: 0.95;
-      color: #fff;
+      color: var(--mars-text);
     }
 
     .mars-desc {
@@ -129,7 +144,7 @@
       font-family: sans-serif;
       font-size: 0.95rem;
       line-height: 1.7;
-      color: rgba(247, 248, 251, 0.65);
+      color: var(--mars-muted);
     }
 
     .mars-actions {
@@ -145,9 +160,9 @@
       min-height: 2.6rem;
       padding: 0 1.4rem;
       border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      border: 1px solid var(--mars-hairline);
       background: rgba(255, 255, 255, 0.06);
-      color: #f7f8fb;
+      color: var(--mars-text);
       font-family: "Offside", sans-serif;
       font-size: 0.85rem;
       letter-spacing: 0.06em;
@@ -165,7 +180,7 @@
     .mars-btn--primary {
       background: #c2410c;
       border-color: #c2410c;
-      color: #fff;
+      color: var(--mars-text);
     }
 
     .mars-btn--primary:hover {
@@ -184,7 +199,7 @@
     .mars-version {
       font-family: sans-serif;
       font-size: 0.72rem;
-      color: rgba(247, 248, 251, 0.35);
+      color: var(--mars-muted-faint);
       letter-spacing: 0.04em;
     }
 
@@ -403,7 +418,7 @@
 
     .m-dcard__name {
       font-family: "Offside", sans-serif;
-      color: #fff;
+      color: var(--mars-text);
       margin-top: 4px;
       line-height: 1.25;
       white-space: nowrap;
@@ -602,8 +617,8 @@
       align-self: stretch;
       text-align: center;
     }
-    .m-tab--on span { color: #ffffff; }
-    .m-tab--off span { color: rgba(255, 255, 255, 0.85); }
+    .m-tab--on span { color: var(--mars-text); }
+    .m-tab--off span { color: var(--mars-muted-soft); }
 
     /* caption under the handset */
     .mars-phone__peek {
@@ -611,7 +626,7 @@
       font-size: 0.68rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: rgba(247, 248, 251, 0.4);
+      color: var(--mars-muted-soft);
       text-align: center;
       margin-top: 0.3rem;
     }
@@ -675,7 +690,7 @@
     .mars-feature p {
       font-size: 0.82rem;
       line-height: 1.7;
-      color: rgba(245, 239, 230, 0.58);
+      color: var(--mars-muted);
     }
 
     .mars-features__close {
@@ -687,7 +702,7 @@
       border-radius: 50%;
       border: 1px solid rgba(255, 255, 255, 0.2);
       background: rgba(255, 255, 255, 0.08);
-      color: #fff;
+      color: var(--mars-text);
       font-size: 1.1rem;
       cursor: pointer;
       display: flex;
