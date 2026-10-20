@@ -468,10 +468,10 @@ body.landing-page main {
 
 /* ADTP — desktop, lowkey */
 .product-card--adtp .product-card__title {
-  font-family: "Offside", sans-serif;
+  font-family: "megrim", sans-serif;
   font-size: 1.35rem;
   letter-spacing: 0.02em;
-  font-weight: 600;
+  font-weight: bold;
 }
 .product-card--adtp .product-card__eyebrow {
   letter-spacing: 0.25em;
