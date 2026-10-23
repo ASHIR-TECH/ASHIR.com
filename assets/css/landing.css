@@ -1,15 +1,13 @@
 body.landing-page {
-  --landing-bg: #f4f3ef;
-  --landing-panel: rgba(255, 255, 255, 0.74);
-  --landing-text: #1f2330;
-  --landing-muted: #61677a;
-  --landing-border: rgba(31, 35, 48, 0.12);
-  --landing-shadow: 0 18px 40px rgba(22, 27, 38, 0.08);
+  --landing-bg: #fafaf9;
+  --landing-panel: rgba(0, 0, 0, 0.03);
+  --landing-text: #0f0f0f;
+  --landing-muted: rgba(0, 0, 0, 0.55);
+  --landing-border: rgba(0, 0, 0, 0.08);
+  --landing-shadow: 0 22px 52px rgba(0, 0, 0, 0.06);
   --hero-shift: 0px;
-  --hero-glow: 0.28;
-  background:
-    radial-gradient(circle at top, rgba(0, 0, 0, 0.05), transparent 24%),
-    linear-gradient(180deg, #faf9f5 0%, var(--landing-bg) 100%);
+  --hero-glow: 0;
+  background: #ffffff;
   color: var(--landing-text);
 }
 
@@ -31,12 +29,8 @@ body.landing-page main {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background:
-    radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.32), transparent 20%),
-    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.18), transparent 18%),
-    radial-gradient(circle at center, rgba(0, 0, 0, var(--hero-glow)), transparent 48%);
-  mix-blend-mode: screen;
-  opacity: 0.6;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.02), transparent 60%);
+  opacity: 0.4;
 }
 
 .landing-header {
@@ -55,11 +49,10 @@ body.landing-page main {
   justify-content: space-between;
   gap: 0.7rem;
   padding: 0.38rem 0.5rem;
-  border: 1px solid rgba(31, 35, 48, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 1rem;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.50), rgba(255, 255, 255, 0.26));
-  backdrop-filter: blur(24px) saturate(1.5);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+  backdrop-filter: blur(20px) saturate(1.1);
   box-shadow: var(--landing-shadow);
   pointer-events: auto;
 }
@@ -124,7 +117,7 @@ body.landing-page main {
   position: relative;
   min-height: 100vh;
   overflow: clip;
-  background: #0c1017;
+  background: #f5f5f2;
 }
 
 .landing-hero__sticky {
@@ -173,7 +166,7 @@ body.landing-page main {
   position: absolute;
   left: 2rem;
   bottom: 1.8rem;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--landing-muted);
   font-size: 1.8rem;
   line-height: 1;
 }
@@ -187,7 +180,7 @@ body.landing-page main {
 
 .landing-eyebrow {
   margin: 0 0 0.85rem;
-  color: rgba(255, 255, 255, 0.82);
+  color: var(--landing-muted);
   font-size: 1rem;
   letter-spacing: 0.38em;
   text-transform: uppercase;
@@ -200,11 +193,11 @@ body.landing-page main {
   font-size: clamp(3.5rem, 10vw, 9rem);
   line-height: 0.94;
   letter-spacing: 0.06em;
-  color: #ffffff;
+  color: var(--landing-text);
   text-wrap: balance;
   overflow-wrap: break-word;
   word-break: break-word;
-  text-shadow: 0 12px 42px rgba(0, 0, 0, 0.34);
+  text-shadow: 0 12px 42px rgba(0, 0, 0, 0.1);
 }
 
 .landing-title__sub {
@@ -213,13 +206,13 @@ body.landing-page main {
   font-family: "Offside", sans-serif;
   font-size: clamp(1.3rem, 2.8vw, 1.8rem);
   letter-spacing: 0.16em;
-  color: rgba(255, 255, 255, 0.82);
+  color: var(--landing-muted);
 }
 
 .landing-kicker {
   margin: 1.4rem auto 0;
   max-width: 42rem;
-  color: rgba(255, 255, 255, 0.82);
+  color: var(--landing-muted);
   font-size: 1.2rem;
   line-height: 1.7;
 }
@@ -230,7 +223,7 @@ body.landing-page main {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--landing-muted);
   font-size: 0.8rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -348,6 +341,14 @@ body.landing-page main {
   font-size: 2.1rem;
 }
 
+.landing-panel__desc {
+  margin: 0.5rem 0 0;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--landing-muted);
+  max-width: 42rem;
+}
+
 .landing-products {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -366,38 +367,39 @@ body.landing-page main {
 
 .product-card--mars .product-card__media {
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.62), rgba(26, 15, 8, 0.06)),
-    radial-gradient(circle at 30% 30%, rgba(26, 15, 8, 0.06), transparent 42%);
+    linear-gradient(135deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.02)),
+    radial-gradient(circle at 30% 30%, rgba(0, 0, 0, 0.03), transparent 42%);
 }
 
 .product-card--mars .product-card__title {
-  font-family: "Audiowide", cursive;
-  letter-spacing: 0.07em;
+  font-family: "Audiowide", sans-serif;
+  letter-spacing: 0.02em;
 }
 
 .product-card {
   display: grid;
   gap: 1rem;
-  padding: 1rem;
-  border-radius: 1.25rem;
+  padding: 1.25rem;
+  border-radius: 1rem;
   border: 1px solid var(--landing-border);
-  background: rgba(255, 255, 255, 0.78);
-  box-shadow: var(--landing-shadow);
-  transition: transform 180ms ease, box-shadow 180ms ease;
+  background: var(--landing-panel);
+  transition: border-color 200ms ease, background 200ms ease;
 }
 
 .product-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 22px 48px rgba(22, 27, 38, 0.12);
+  border-color: rgba(0, 0, 0, 0.25);
+}
+
+:root[data-theme="dark"] .product-card:hover {
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .product-card__media {
-  aspect-ratio: 4 / 3;
-  border-radius: 1rem;
+  aspect-ratio: 16 / 10;
+  border-radius: 0.75rem;
   overflow: hidden;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.62), rgba(31, 35, 48, 0.06)),
-    radial-gradient(circle at 30% 30%, rgba(31, 35, 48, 0.06), transparent 42%);
+  background: #f2f2f0;
+  border: 1px solid var(--landing-border);
 }
 
 .product-card__media img {
@@ -405,6 +407,13 @@ body.landing-page main {
   height: 100%;
   object-fit: cover;
   display: block;
+  filter: grayscale(0.2);
+  transition: filter 300ms ease, transform 300ms ease;
+}
+
+.product-card:hover .product-card__media img {
+  filter: grayscale(0);
+  transform: scale(1.02);
 }
 
 .product-card__body {
@@ -415,29 +424,32 @@ body.landing-page main {
 .product-card__eyebrow {
   margin: 0;
   color: var(--landing-muted);
-  font-size: 0.76rem;
-  letter-spacing: 0.28em;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
+  font-family: "Offside", sans-serif;
 }
 
 .product-card__title {
   margin: 0;
-  font-family: "Offside", sans-serif;
-  font-size: 1.25rem;
-  letter-spacing: 0.04em;
+  font-family: "Audiowide", sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 0.01em;
+  color: var(--landing-text);
 }
 
 .product-card__copy {
   margin: 0;
   color: var(--landing-muted);
-  font-size: 0.92rem;
-  line-height: 1.65;
+  font-size: 0.9rem;
+  line-height: 1.7;
 }
 
 .product-card__meta {
   display: flex;
   flex-wrap: wrap;
   gap: 0.45rem;
+  margin-top: 0.25rem;
 }
 
 .meta-pill {
@@ -447,11 +459,22 @@ body.landing-page main {
   padding: 0 0.65rem;
   border-radius: 999px;
   border: 1px solid var(--landing-border);
-  background: rgba(255, 255, 255, 0.9);
-  color: var(--landing-text);
-  font-size: 0.72rem;
+  background: rgba(0, 0, 0, 0.04);
+  color: var(--landing-muted);
+  font-size: 0.7rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+/* ADTP — desktop, lowkey */
+.product-card--adtp .product-card__title {
+  font-family: "megrim", sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 0.02em;
+  font-weight: bold;
+}
+.product-card--adtp .product-card__eyebrow {
+  letter-spacing: 0.25em;
 }
 
 .landing-projects {
@@ -692,6 +715,11 @@ body.landing-page main {
   transform: translateX(-0.25rem);
 }
 
+:root[data-theme="light"] .landing-pager__item.is-active {
+  background: #e5e5e5;
+  color: #000000;
+}
+
 .landing-stack {
   display: grid;
   gap: 0.9rem;
@@ -780,6 +808,12 @@ body.landing-page main {
   border-color: rgba(255, 255, 255, 0.08);
 }
 
+:root[data-theme="light"] .landing-cta--dark {
+  background: #000000;
+  color: #ffffff;
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
 :root[data-theme="dark"] body.landing-page {
   --landing-bg: #0b0d11;
   --landing-panel: rgba(13, 15, 18, 0.84);
@@ -827,6 +861,53 @@ body.landing-page main {
     radial-gradient(circle at 30% 30%, rgba(125, 211, 252, 0.12), transparent 42%);
   color: rgba(255, 255, 255, 0.6);
   border-color: rgba(255, 255, 255, 0.12);
+}
+
+:root[data-theme="dark"] .landing-hero {
+  background: #000000;
+}
+
+:root[data-theme="dark"] .landing-hero__shade {
+  background:
+    radial-gradient(circle at center, rgba(0, 0, 0, 0.35), transparent 42%),
+    linear-gradient(180deg, rgba(6, 8, 11, 0.3) 0%, rgba(6, 8, 11, 0.9) 100%);
+}
+
+/* Light mode: ensure all text is dark on light backgrounds */
+:root[data-theme="light"] .landing-eyebrow,
+:root[data-theme="light"] .landing-title,
+:root[data-theme="light"] .landing-title__sub,
+:root[data-theme="light"] .landing-kicker,
+:root[data-theme="light"] .landing-scroll,
+:root[data-theme="light"] .landing-scroll__arrow,
+:root[data-theme="light"] .product-card__title,
+:root[data-theme="light"] .product-card__copy,
+:root[data-theme="light"] .product-card__eyebrow,
+:root[data-theme="light"] .meta-pill,
+:root[data-theme="light"] .landing-panel__label,
+:root[data-theme="light"] .landing-panel__title,
+:root[data-theme="light"] .landing-panel__desc {
+  color: var(--landing-text);
+}
+
+:root[data-theme="light"] .product-card__copy,
+:root[data-theme="light"] .meta-pill,
+:root[data-theme="light"] .landing-panel__desc,
+:root[data-theme="light"] .product-card__eyebrow {
+  color: var(--landing-muted);
+}
+
+:root[data-theme="dark"] .landing-eyebrow,
+:root[data-theme="dark"] .landing-title,
+:root[data-theme="dark"] .landing-title__sub,
+:root[data-theme="dark"] .landing-kicker,
+:root[data-theme="dark"] .landing-scroll,
+:root[data-theme="dark"] .landing-scroll__arrow {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+:root[data-theme="dark"] .landing-title {
+  text-shadow: 0 12px 42px rgba(0, 0, 0, 0.6);
 }
 
 :root[data-theme="dark"] .landing-footer__bottom {

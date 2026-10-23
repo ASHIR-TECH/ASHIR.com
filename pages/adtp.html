@@ -13,12 +13,32 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --adtp-bg: #000;
+      --adtp-text: #f7f8fb;
+      --adtp-muted: rgba(247, 248, 251, 0.65);
+      --adtp-muted-soft: rgba(247, 248, 251, 0.5);
+      --adtp-muted-faint: rgba(247, 248, 251, 0.35);
+      --adtp-border: rgba(255, 255, 255, 0.08);
+      --adtp-border-soft: rgba(255, 255, 255, 0.15);
+    }
+
     html, body {
       height: 100%;
       overflow: hidden;
-      background: #000;
-      color: #f7f8fb;
+      background: var(--adtp-bg);
+      color: var(--adtp-text);
       font-family: "Offside", sans-serif;
+    }
+
+    [data-theme="light"] {
+      --adtp-bg: #ffffff;
+      --adtp-text: #0f0f0f;
+      --adtp-muted: rgba(0, 0, 0, 0.65);
+      --adtp-muted-soft: rgba(0, 0, 0, 0.5);
+      --adtp-muted-faint: rgba(0, 0, 0, 0.35);
+      --adtp-border: rgba(0, 0, 0, 0.08);
+      --adtp-border-soft: rgba(0, 0, 0, 0.15);
     }
 
     /* ── orb background ── */
@@ -145,7 +165,7 @@
       font-size: 0.72rem;
       letter-spacing: 0.36em;
       text-transform: uppercase;
-      color: rgba(247, 248, 251, 0.5);
+      color: var(--adtp-muted-soft);
     }
 
     .adtp-title {
@@ -153,7 +173,7 @@
       font-size: clamp(2.4rem, 5vw, 4.5rem);
       letter-spacing: 0.06em;
       line-height: 0.95;
-      color: #fff;
+      color: var(--adtp-text);
     }
 
     .adtp-desc {
@@ -161,7 +181,7 @@
       font-family: sans-serif;
       font-size: 0.95rem;
       line-height: 1.7;
-      color: rgba(247, 248, 251, 0.65);
+      color: var(--adtp-muted);
     }
 
     .adtp-actions {
@@ -177,9 +197,9 @@
       min-height: 2.6rem;
       padding: 0 1.4rem;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.15);
+      border: 1px solid var(--adtp-border-soft);
       background: rgba(255,255,255,0.06);
-      color: #f7f8fb;
+      color: var(--adtp-text);
       font-family: "Offside", sans-serif;
       font-size: 0.85rem;
       letter-spacing: 0.06em;
@@ -197,12 +217,20 @@
     .adtp-btn--primary {
       background: #c2410c;
       border-color: #c2410c;
-      color: #fff;
+      color: var(--adtp-text);
     }
 
     .adtp-btn--primary:hover {
       background: #ea580c;
       border-color: #ea580c;
+    }
+
+    /* visible keyboard focus (launch) */
+    .adtp-btn:focus-visible,
+    .adtp-lightbox__close:focus-visible,
+    .adtp-header__actions button:focus-visible {
+      outline: 2px solid #fff;
+      outline-offset: 2px;
     }
 
     .adtp-version {
@@ -297,7 +325,7 @@
       border-radius: 50%;
       border: 1px solid rgba(255,255,255,0.2);
       background: rgba(255,255,255,0.08);
-      color: #fff;
+      color: var(--adtp-text);
       font-size: 1.1rem;
       cursor: pointer;
       display: flex;
@@ -347,7 +375,7 @@
       display: inline-flex;
       align-items: center;
       gap: 0.65rem;
-      color: #f7f8fb;
+      color: var(--adtp-text);
       text-decoration: none;
     }
 
@@ -374,18 +402,18 @@
     .adtp-header__actions .theme-toggle {
       width: 10rem;
       height: 2.9rem;
-      border-color: rgba(255,255,255,0.12);
+      border-color: var(--adtp-border-soft);
       background: rgba(255,255,255,0.06);
-      color: #f7f8fb;
+      color: var(--adtp-text);
       box-shadow: 0 8px 24px rgba(0,0,0,0.18);
     }
 
     .adtp-header__actions .nav-toggle {
       width: 9.25rem;
       height: 2.9rem;
-      border-color: rgba(255,255,255,0.12);
+      border-color: var(--adtp-border-soft);
       background: rgba(255,255,255,0.06);
-      color: #f7f8fb;
+      color: var(--adtp-text);
       box-shadow: 0 8px 24px rgba(0,0,0,0.18);
     }
 
@@ -397,7 +425,7 @@
     }
 
     .adtp-header__bar .site-nav a {
-      color: #fff;
+      color: var(--adtp-text);
     }
 
     /* ── responsive ── */
