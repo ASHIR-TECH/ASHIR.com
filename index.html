@@ -9,11 +9,9 @@
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/nav.css">
   <link rel="stylesheet" href="assets/css/landing.css">
-  <script defer src="assets/js/anime.min.js"></script>
   <script defer src="assets/js/theme.js"></script>
   <script defer src="assets/js/nav.js"></script>
   <script defer src="assets/js/landing.js"></script>
-  <script defer src="assets/js/marquee-loop.js"></script>
   <script defer src="assets/js/animations.js"></script>
 </head>
 <body class="landing-page">
@@ -62,41 +60,56 @@
 
     <main>
       <!-- ═══ HERO ═══ -->
-      <section class="landing-hero" id="hero" data-section="hero">
-        <div class="landing-hero__sticky">
-          <video class="landing-video" autoplay muted loop playsinline preload="metadata">
-            <source src="assets/css/media/background1.mp4" type="video/mp4">
-          </video>
-          <div class="landing-hero__shade" aria-hidden="true"></div>
-          <div class="landing-hero__content landing-hero__content--top">
-            <div class="landing-hero__title-wrap">
-              <p class="landing-eyebrow">Ashir Tech</p>
-              <h1 class="landing-title">
-                <span>ASHIR</span>
-                <span class="landing-title__sub">Born from Ash. Rising for the World.</span>
-              </h1>
-              <p class="landing-kicker">Ashir Tech builds software for Africa's 1.4 billion people. ADTP is the missing protocol for direct, encrypted, peer-to-peer file transfer between AI agents. MARS puts your desktop agent in your pocket.</p>
+      <section class="landing-hero scroll-snap-section" id="hero" data-section="hero">
+        <video class="landing-video" autoplay muted loop playsinline preload="metadata">
+          <source src="assets/css/media/background1.mp4" type="video/mp4">
+        </video>
+        <div class="landing-hero__shade" aria-hidden="true"></div>
+        <div class="landing-hero__content">
+          <div class="landing-hero__title-wrap">
+            <p class="landing-eyebrow">Ashir Tech</p>
+            <h1 class="landing-title">
+              <span>ASHIR</span>
+              <span class="landing-title__sub">Born from Ash. Rising for the World.</span>
+            </h1>
+            <p class="landing-kicker">Ashir Tech builds software for Africa's 1.4 billion people. ADTP is the missing protocol for direct, encrypted, peer-to-peer file transfer between AI agents. MARS puts your desktop agent in your pocket.</p>
+            <div class="landing-hero__ctas">
+              <a class="landing-cta landing-cta--dark" href="pages/adtp.html">ADTP Spec</a>
+              <a class="landing-cta" href="pages/mars.html">MARS Spec</a>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ═══ MARQUEE ═══ -->
-      <section class="landing-marquee" aria-label="Capabilities marquee">
-        <div class="landing-marquee__viewport">
-          <div class="landing-marquee__track">
-            <span>A.D.T.P</span>
-            <span>M.A.R.S</span>
-            <span>Decision intelligence</span>
-            <span>Software infrastructure</span>
-            <span>AI-first systems</span>
-            <span>Product design</span>
-          </div>
+      <!-- ═══ PROBLEM ═══ -->
+      <section class="landing-section scroll-snap-section" id="problem" data-section="problem">
+        <div class="landing-section__inner">
+          <article class="landing-panel">
+            <div class="landing-panel__head">
+              <p class="landing-panel__label">The Problem</p>
+              <h2 class="landing-panel__title">Africa needs AI infrastructure, not charity.</h2>
+            </div>
+
+            <div class="landing-problem-grid">
+              <article class="problem-card">
+                <h3>Infrastructure gap</h3>
+                <p>Africa hosts less than 1% of global data centres. Governments and institutions need secure, auditable AI systems built locally.</p>
+              </article>
+              <article class="problem-card">
+                <h3>Data sovereignty</h3>
+                <p>Nigeria's NDPA, Kenya's Data Protection Act, GDPR, and HIPAA require local processing. Cloud-dependent tools can't comply.</p>
+              </article>
+              <article class="problem-card">
+                <h3>No direct path</h3>
+                <p>AI agents on different machines can't communicate directly. Files must pass through third-party cloud servers — there is no peer-to-peer layer for agents.</p>
+              </article>
+            </div>
+          </article>
         </div>
       </section>
 
       <!-- ═══ PRODUCTS ═══ -->
-      <section class="landing-section l-section--full" id="products" data-section="products">
+      <section class="landing-section scroll-snap-section" id="products" data-section="products">
         <div class="landing-section__inner">
           <article class="landing-panel">
             <div class="landing-panel__head">
@@ -137,74 +150,13 @@
                   </div>
                 </div>
               </a>
-
-              <!-- TEMP: cards 2 & 3 hidden
-              <article class="product-card">
-                <div class="product-card__media">
-                  <img src="assets/css/media/monk-2.jpg" alt="Decision dashboard">
-                </div>
-                <div class="product-card__body">
-                  <p class="product-card__eyebrow">Interface</p>
-                  <h3 class="product-card__title">Decision dashboard</h3>
-                  <p class="product-card__copy">A clear command surface for teams that need live signals, operational status, and a focused view of what matters.</p>
-                  <div class="product-card__meta">
-                    <span class="meta-pill">Signals</span>
-                    <span class="meta-pill">Monitoring</span>
-                    <span class="meta-pill">Control</span>
-                  </div>
-                </div>
-              </article>
-
-              <article class="product-card">
-                <div class="product-card__media">
-                  <img src="assets/css/media/monk-3.jpg" alt="AI ops layer">
-                </div>
-                <div class="product-card__body">
-                  <p class="product-card__eyebrow">Automation</p>
-                  <h3 class="product-card__title">AI ops layer</h3>
-                  <p class="product-card__copy">A lighter system for orchestration, task routing, and reducing operational overhead across the stack.</p>
-                  <div class="product-card__meta">
-                    <span class="meta-pill">Ops</span>
-                    <span class="meta-pill">Scale</span>
-                    <span class="meta-pill">Routing</span>
-                  </div>
-                </div>
-              </article>
-              END TEMP -->
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <!-- ═══ PROBLEM ═══ -->
-      <section class="landing-section l-section--full" id="problem" data-section="problem">
-        <div class="landing-section__inner">
-          <article class="landing-panel">
-            <div class="landing-panel__head">
-              <p class="landing-panel__label">The Problem</p>
-              <h2 class="landing-panel__title">Africa needs AI infrastructure, not charity.</h2>
-            </div>
-
-            <div class="landing-problem-grid">
-              <article class="problem-card">
-                <h3>Infrastructure gap</h3>
-                <p>Africa hosts less than 1% of global data centres. Governments and institutions need secure, auditable AI systems built locally.</p>
-              </article>
-              <article class="problem-card">
-                <h3>Data sovereignty</h3>
-                <p>Nigeria's NDPA, Kenya's Data Protection Act, GDPR, and HIPAA require local processing. Cloud-dependent tools can't comply.</p>
-              </article>
-              <article class="problem-card">
-                <h3>No direct path</h3>
-                <p>AI agents on different machines can't communicate directly. Files must pass through third-party cloud servers — there is no peer-to-peer layer for agents.</p>
-              </article>
             </div>
           </article>
         </div>
       </section>
 
       <!-- ═══ HOW IT WORKS ═══ -->
-      <section class="landing-section l-section--full" id="how-it-works" data-section="how-it-works">
+      <section class="landing-section scroll-snap-section" id="how-it-works" data-section="how-it-works">
         <div class="landing-section__inner">
           <article class="landing-panel">
             <div class="landing-panel__head">
@@ -234,7 +186,7 @@
       </section>
 
       <!-- ═══ MARKET ═══ -->
-      <section class="landing-section l-section--full" id="market" data-section="market">
+      <section class="landing-section scroll-snap-section" id="market" data-section="market">
         <div class="landing-section__inner">
           <article class="landing-panel">
             <div class="landing-panel__head">
@@ -269,7 +221,7 @@
       </section>
 
       <!-- ═══ COMPANY ═══ -->
-      <section class="landing-section l-section--full" id="company" data-section="company">
+      <section class="landing-section scroll-snap-section" id="company" data-section="company">
         <div class="landing-section__inner">
           <article class="landing-panel">
             <div class="landing-panel__head">
@@ -304,7 +256,7 @@
       </section>
 
       <!-- ═══ MANIFESTO ═══ -->
-      <section class="landing-manifesto" id="manifesto" data-section="manifesto">
+      <section class="landing-manifesto scroll-snap-section" id="manifesto" data-section="manifesto">
         <div class="landing-manifesto__inner">
           <p class="landing-manifesto__quote">"Africa does not need saving. It needs builders who refuse to stop."</p>
           <p class="landing-manifesto__attrib">— Ashir Group, 2026</p>
@@ -312,7 +264,7 @@
       </section>
 
       <!-- ═══ GITHUB ═══ -->
-      <section class="landing-section l-section--full" id="github" data-section="github">
+      <section class="landing-section scroll-snap-section" id="github" data-section="github">
         <div class="landing-section__inner">
           <article class="landing-panel">
             <div class="landing-panel__head">
@@ -334,7 +286,7 @@
       </section>
 
       <!-- ═══ PROJECTS ═══ -->
-      <section class="landing-section l-section--full" id="projects" data-section="projects">
+      <section class="landing-section scroll-snap-section" id="projects" data-section="projects">
         <div class="landing-section__inner">
           <article class="landing-panel">
             <div class="landing-panel__head">
@@ -353,25 +305,13 @@
                 <h3 class="project-name">M.A.R.S</h3>
                 <div class="project-code">MOBILE REMOTE AGENT</div>
               </a>
-              <!--
-              <div class="project-row">
-                <div class="project-index">03</div>
-                <h3 class="project-name">CIPHER</h3>
-                <div class="project-code">Secure decisioning</div>
-              </div>
-              <div class="project-row">
-                <div class="project-index">04</div>
-                <h3 class="project-name">NEXUS</h3>
-                <div class="project-code">Infrastructure control</div>
-              </div>
-              -->
             </div>
           </article>
         </div>
       </section>
 
       <!-- ═══ PITCH ═══ -->
-      <section class="landing-section l-section--full" id="contact-band" data-section="contact-band">
+      <section class="landing-section scroll-snap-section" id="contact-band" data-section="contact-band">
         <div class="landing-section__inner">
           <div class="landing-pitch">
             <article class="landing-pitch__card">
