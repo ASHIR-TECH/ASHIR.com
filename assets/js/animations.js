@@ -19,29 +19,6 @@
     .add({ targets: ".landing-title", opacity: [0, 1], y: [50, 0], scale: [0.95, 1], duration: 1000 }, "-=500")
     .add({ targets: ".landing-kicker", opacity: [0, 1], y: [30, 0], duration: 800 }, "-=600");
 
-  /* ── hero scroll-fade: content fades out as user scrolls ── */
-  const heroContent = document.querySelector(".landing-hero__content");
-  const heroSticky = document.querySelector(".landing-hero__sticky");
-  if (heroContent && heroSticky) {
-    const heroEls = heroContent.querySelectorAll(".landing-eyebrow, .landing-title, .landing-kicker");
-    let heroTicking = false;
-
-    const onScroll = () => {
-      const progress = Math.min(window.scrollY / window.innerHeight, 1);
-      const fade = 1 - progress;
-      heroContent.style.opacity = fade;
-      heroContent.style.transform = "translateY(" + (progress * 60) + "px)";
-      heroSticky.style.filter = "blur(" + (progress * 8) + "px)";
-      heroSticky.style.opacity = 1 - progress * 0.4;
-      heroTicking = false;
-    };
-
-    window.addEventListener("scroll", () => {
-      if (!heroTicking) { heroTicking = true; requestAnimationFrame(onScroll); }
-    }, { passive: true });
-    onScroll();
-  }
-
   /* ── section reveal helper ── */
   function revealSection(id, childSel, props, stagger) {
     const section = document.querySelector(id);
@@ -68,13 +45,13 @@
   /* ── products ── */
   const prodSection = document.querySelector("#products");
   if (prodSection) {
-    const card = prodSection.querySelector(".product-card");
-    if (card) {
-      anime.set(card, { opacity: 0, scale: 0.92, y: 50 });
+    const cards = prodSection.querySelectorAll(".product-card");
+    if (cards.length) {
+      anime.set(cards, { opacity: 0, scale: 0.92, y: 50 });
       const prodObs = new IntersectionObserver(entries => {
         if (entries.some(e => e.isIntersecting)) {
           setTimeout(() => {
-            anime({ targets: card, opacity: [0, 1], scale: [0.92, 1], y: [50, 0], duration: 1000, easing: ease });
+            anime({ targets: cards, opacity: [0, 1], scale: [0.92, 1], y: [50, 0], duration: 1000, easing: ease, delay: anime.stagger(150) });
           }, 300);
           prodObs.unobserve(prodSection);
         }
@@ -83,10 +60,25 @@
     }
   }
 
-  /* ── stack cards ── */
-  revealSection("#stack", ".stack-card", {
-    opacity: [0, 1], x: [-60, 0], duration: 900, easing: ease
-  }, 180);
+  /* ── problem cards ── */
+  revealSection("#problem", ".problem-card", {
+    opacity: [0, 1], y: [40, 0], duration: 800, easing: ease
+  }, 160);
+
+  /* ── how it works steps ── */
+  revealSection("#how-it-works", ".landing-step", {
+    opacity: [0, 1], y: [40, 0], duration: 800, easing: ease
+  }, 160);
+
+  /* ── market stats ── */
+  revealSection("#market", ".market-stat", {
+    opacity: [0, 1], y: [40, 0], duration: 800, easing: ease
+  }, 140);
+
+  /* ── company subsidiaries ── */
+  revealSection("#company", ".subsidiary", {
+    opacity: [0, 1], y: [40, 0], duration: 800, easing: ease
+  }, 140);
 
   /* ── project rows ── */
   revealSection("#projects", ".project-row", {
