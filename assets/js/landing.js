@@ -2,6 +2,7 @@
   const links = Array.from(document.querySelectorAll("[data-section-link]"));
   const sections = Array.from(document.querySelectorAll("[data-section]"));
   const root = document.documentElement;
+  const progressBar = document.querySelector("body.landing-page::after");
 
   if (!links.length || !sections.length) {
     return;
@@ -28,10 +29,16 @@
       if (visible) {
         setActive(visible.target.dataset.section);
       }
+
+      // Scroll progress bar
+      const scrollTop = window.scrollY;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = maxScroll > 0 ? scrollTop / maxScroll : 0;
+      root.style.setProperty("--scroll-progress", `${(progress * 100).toFixed(2)}%`);
     },
     {
       threshold: [0.2, 0.35, 0.55, 0.7],
-      rootMargin: "-20% 0px -50% 0px",
+      rootMargin: "-25% 0px -50% 0px",
     }
   );
 
@@ -67,55 +74,15 @@
     revealTargets.forEach((el) => el.classList.add("is-visible"));
   }
 
-  let scrollTarget = window.scrollY;
-  let scrollAnimating = false;
-
-  const smoothScroll = () => {
-    const current = window.scrollY;
-    const diff = scrollTarget - current;
-    if (Math.abs(diff) < 0.5) {
-      window.scrollTo({ top: scrollTarget, behavior: "auto" });
-      scrollAnimating = false;
-      return;
-    }
-    window.scrollTo({ top: current + diff * 0.12, behavior: "auto" });
-    scrollAnimating = true;
-    requestAnimationFrame(smoothScroll);
-  };
-
-  const isLandingPage = document.body.classList.contains("landing-page");
-
-  if (isLandingPage && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    window.addEventListener("wheel", (e) => {
-      e.preventDefault();
-      scrollTarget = Math.max(0, Math.min(scrollTarget + e.deltaY * 0.5, document.documentElement.scrollHeight - window.innerHeight));
-      if (!scrollAnimating) {
-        requestAnimationFrame(smoothScroll);
-      }
-    }, { passive: false });
-  }
-
-  const hero = document.querySelector(".landing-hero");
-
-  if (hero && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    let ticking = false;
-
-    const updateHero = () => {
-      const progress = Math.min(window.scrollY / window.innerHeight, 1);
-      root.style.setProperty("--hero-shift", `${progress * 26}px`);
-      root.style.setProperty("--hero-glow", `${0.25 + progress * 0.35}`);
-      ticking = false;
-    };
-
-    window.addEventListener("scroll", () => {
-      if (ticking) {
-        return;
-      }
-
-      ticking = true;
-      window.requestAnimationFrame(updateHero);
-    }, { passive: true });
-
-    updateHero();
-  }
+  // Scroll progress on every scroll event
+  window.addEventListener(
+    "scroll",
+    () => {
+      const scrollTop = window.scrollY;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = maxScroll > 0 ? scrollTop / maxScroll : 0;
+      root.style.setProperty("--scroll-progress", `${(progress * 100).toFixed(2)}%`);
+    },
+    { passive: true }
+  );
 })();
