@@ -477,6 +477,201 @@ body.landing-page main {
   letter-spacing: 0.25em;
 }
 
+/* ── problem ── */
+.landing-problem-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.problem-card {
+  padding: 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid var(--landing-border);
+  background: var(--landing-panel);
+}
+
+.problem-card h3 {
+  margin: 0 0 0.75rem;
+  font-family: "Offside", sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  color: var(--landing-text);
+}
+
+.problem-card p {
+  margin: 0;
+  color: var(--landing-muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+/* ── how it works ── */
+.landing-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.landing-step {
+  padding: 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid var(--landing-border);
+  background: var(--landing-panel);
+  display: grid;
+  gap: 0.75rem;
+}
+
+.landing-step__index {
+  font-family: "Megrim", sans-serif;
+  font-size: 2rem;
+  letter-spacing: 0.02em;
+  color: var(--landing-muted);
+}
+
+.landing-step h3 {
+  margin: 0;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  color: var(--landing-text);
+}
+
+.landing-step p {
+  margin: 0;
+  color: var(--landing-muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+/* ── market ── */
+.landing-market-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.market-stat {
+  text-align: center;
+}
+
+.market-stat__value {
+  display: block;
+  font-family: "Megrim", sans-serif;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  letter-spacing: 0.02em;
+  color: var(--landing-text);
+}
+
+.market-stat__label {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  color: var(--landing-muted);
+}
+
+.landing-market-note {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--landing-muted);
+  max-width: 42rem;
+  font-style: italic;
+}
+
+/* ── company / subsidiaries ── */
+.landing-subsidiaries {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.subsidiary {
+  padding: 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid var(--landing-border);
+  background: var(--landing-panel);
+  display: grid;
+  gap: 0.75rem;
+}
+
+.subsidiary h3 {
+  margin: 0;
+  font-family: "Offside", sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  color: var(--landing-text);
+}
+
+.subsidiary p {
+  margin: 0;
+  color: var(--landing-muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+/* ── manifesto ── */
+.landing-manifesto {
+  padding: 7rem 0 3rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: center;
+}
+
+.landing-manifesto__inner {
+  width: min(100% - 2rem, 1180px);
+  margin: 0 auto;
+  max-width: 56ch;
+}
+
+.landing-manifesto__quote {
+  margin: 0 0 0.75rem;
+  font-family: "Audiowide", Arial, sans-serif;
+  font-size: clamp(2rem, 5.5vw, 3.75rem);
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  color: var(--landing-text);
+}
+
+.landing-manifesto__attrib {
+  margin: 0;
+  font-size: 0.85rem;
+  letter-spacing: 0.22em;
+  color: var(--landing-muted);
+}
+
+/* ── github ── */
+.landing-github-desc {
+  margin: 0 0 1.5rem;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--landing-muted);
+  max-width: 42rem;
+}
+
+.landing-github-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ── responsive for new sections ── */
+@media (max-width: 720px) {
+  .landing-problem-grid,
+  .landing-steps,
+  .landing-market-grid,
+  .landing-subsidiaries {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .landing-problem-grid,
+  .landing-steps,
+  .landing-market-grid,
+  .landing-subsidiaries {
+    grid-template-columns: 1fr;
+  }
+}
+
 .landing-projects {
   display: grid;
   gap: 0.85rem;
